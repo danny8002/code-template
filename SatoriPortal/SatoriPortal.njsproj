@@ -21,6 +21,12 @@
   <ItemGroup>
     <Content Include="auth.cloud.json" />
     <Content Include="auth.json" />
+    <Content Include="bin\ChangeConfig.ps1" />
+    <Content Include="bin\download.ps1" />
+    <Content Include="bin\Microsoft.NodejsTools.WebRole.dll" />
+    <Content Include="bin\node.cmd" />
+    <Content Include="bin\setup_cloud.cmd" />
+    <Content Include="bin\setup_web.cmd" />
     <Content Include="package.json" />
     <Content Include="tsconfig.json" />
     <Content Include="typings.json" />
