@@ -22,6 +22,14 @@ echo Downloading and installing runtime components
 powershell .\download.ps1 '%RUNTIMEURL%' '%RUNTIMEURLOVERRIDE%'
 if %ERRORLEVEL% neq 0 goto error
 
+echo Use custom node version v4.4.4 & iisnode v0.2.21
+copy /y node-v4.4.4.exe d:\node.exe
+
+echo Installing iisnode... 
+msiexec.exe /quiet /i iisnode-full-v0.2.21-x64.msi 
+if %ERRORLEVEL neq 0 goto error 
+echo OK
+
 echo SUCCESS
 exit /b 0
 
