@@ -1,0 +1,15 @@
+obj
+
+node_modules
+.idea
+.vs
+.tscache
+.ntvs_analysis.dat
+*.js.map
+*.js
+
+*.cspkg
+
+!*.min.js
+!gruntfile.js
+!server.js
