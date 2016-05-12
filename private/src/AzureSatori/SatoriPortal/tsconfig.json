@@ -13,6 +13,9 @@
 
     "files": [
         "app.ts",
+
+        "common/sysinfo.ts",
+
         "routes/main.ts",
         "routes/index.ts",
         "routes/users.ts",

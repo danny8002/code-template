@@ -22,6 +22,8 @@
 		"grunt-ts" : "^5.5.0-beta.2",
 		"jade" : "~1.11.0",
 		"morgan" : "~1.6.1",
+		"passport" : "^0.3.2",
+		"passport-azure-ad" : "^1.4.5",
 		"serve-favicon" : "~2.3.0",
 		"typescript" : "^1.8.9"
 	},

@@ -33,10 +33,10 @@
     <None Include="Web.cloud.config" />
     <Content Include="Web.config" />
     <TypeScriptCompile Include="app.ts" />
-    <Compile Include="app.js" />
     <Compile Include="gruntfile.js" />
     <Compile Include="server.js" />
     <Compile Include="startup.js" />
+    <TypeScriptCompile Include="common\sysinfo.ts" />
     <TypeScriptCompile Include="routes\index.ts" />
     <TypeScriptCompile Include="routes\users.ts" />
     <Content Include="views\error.jade" />
@@ -77,6 +77,7 @@
   <ItemGroup>
     <Folder Include="bin" />
     <Folder Include="models\" />
+    <Folder Include="common\" />
     <Folder Include="public" />
     <Folder Include="public\images" />
     <Folder Include="public\javascripts" />
