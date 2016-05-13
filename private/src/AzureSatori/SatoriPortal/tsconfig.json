@@ -16,7 +16,8 @@
         "app.ts",
 
         "common/sysinfo.ts",
-
+        "common/authentication.ts",
+        
         "routes/main.ts",
         "routes/index.ts",
         "routes/users.ts",

@@ -1,5 +1,5 @@
 ﻿{
-    "returnURL": "http://satoriportal.cloudapp.net/auth/openid/return",
+    "callbackURL": "http://satoriportal.cloudapp.net/auth/openid/return",
 
     "tenantName": "microsoft.microsoftonline.com",
 

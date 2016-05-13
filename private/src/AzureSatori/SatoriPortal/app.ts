@@ -1,9 +1,12 @@
 /// <reference path="typings/main.d.ts" />
 /// <reference path="routes/main.ts" />
-/// <reference path="models/HttpError.ts" />
+/// <reference path="models/main.d.ts" />
 
 import Express = require('express');
 import Path = require('path');
+import ExpressSession = require("express-session");
+import Passport = require("passport");
+
 //import favicon = require('serve-favicon');
 //import logger = require('morgan');
 import CookieParser = require('cookie-parser');
@@ -25,6 +28,10 @@ app.use(BodyParser.urlencoded({ extended: false }));
 app.use(CookieParser());
 app.use(Express.static(Path.join(__dirname, 'public')));
 
+app.use(ExpressSession({ secret: 'keyboard cat2', resave: true, saveUninitialized: true }));
+app.use(Passport.initialize());
+app.use(Passport.session());
+
 RouteCollection.registerAll(app);
 
 // catch 404 and forward to error handler
@@ -38,7 +45,6 @@ app.use(<Express.RequestHandler>function (req, res, next) {
 
 // development error handler
 // will print stacktrace
-if (app.get('env') === 'development') {
     app.use(<Express.ErrorRequestHandler>function (err, req, res, next) {
         res.status(err.status || 500);
         res.render('error', {
@@ -46,17 +52,20 @@ if (app.get('env') === 'development') {
             error: err
         });
     });
+    
+if (app.get('env') === 'development') {
+
 }
 
 // production error handler
 // no stacktraces leaked to user
-app.use(<Express.ErrorRequestHandler>function (err, req, res, next) {
-    res.status(err.status || 500);
-    res.render('error', {
-        message: err.message,
-        error: {}
-    });
-});
+// app.use(<Express.ErrorRequestHandler>function (err, req, res, next) {
+//     res.status(err.status || 500);
+//     res.render('error', {
+//         message: err.message,
+//         error: {}
+//     });
+// });
 
 
 module.exports = app;
