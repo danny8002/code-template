@@ -11,25 +11,25 @@ const AUTH_CONFIG_PATH: string = "../auth.json";
 
 namespace AuthOperation {
 
-    var userCacheStore = <{ [key: string]: AzureAD_.AzureADProfile }>{};
+    var userCacheStore = <{ [key: string]: AzureAD_.OIDCProfile }>{};
 
     export function readAuthConfig(path: string): PassportAzureAD.OIDCStrategyOptions {
         var config = <PassportAzureAD.OIDCStrategyOptions>require(AUTH_CONFIG_PATH);
         return config;
     }
 
-    export function key(profile: AzureAD_.AzureADProfile): string {
+    export function key(profile: AzureAD_.OIDCProfile): string {
         return profile.email;
     }
 
-    export function findUserProfile(id: string, fn: (err: Error, profile: AzureAD_.AzureADProfile) => void): any {
+    export function findUserProfile(id: string, fn: (err: Error, profile: AzureAD_.OIDCProfile) => void): any {
 
         var u = userCacheStore[id];
 
         return fn(null, u);
     }
 
-    export function storeUserProfile(id: string, profile: AzureAD_.AzureADProfile, fn: (err: Error) => void): void {
+    export function storeUserProfile(id: string, profile: AzureAD_.OIDCProfile, fn: (err: Error) => void): void {
         userCacheStore[id] = profile;
         fn(null);
     }
@@ -86,12 +86,12 @@ namespace AuthOperation {
 //   serialize users into and deserialize users out of the session.  Typically,
 //   this will be as simple as storing the user ID when serializing, and finding
 //   the user by ID when deserializing.
-Passport_.serializeUser(function (user: AzureAD_.AzureADProfile, done: (err: Error, id: string) => void) {
+Passport_.serializeUser(function (user: AzureAD_.OIDCProfile, done: (err: Error, id: string) => void) {
     console.log('serializeUser: ' + JSON.stringify(user));
     done(null, AuthOperation.key(user));
 });
 
-Passport_.deserializeUser(function (id: string, done: (err: Error, user: AzureAD_.AzureADProfile) => void) {
+Passport_.deserializeUser(function (id: string, done: (err: Error, user: AzureAD_.OIDCProfile) => void) {
     console.log('deserializeUser', { id: id });
     AuthOperation.findUserProfile(id, done);
 });
