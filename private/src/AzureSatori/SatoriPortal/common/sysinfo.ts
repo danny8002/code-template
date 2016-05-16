@@ -26,7 +26,9 @@ export function sysinfo(fn: SysInfoCallBack): void {
     dict["os.totalmem()"] = OS.totalmem();
     dict["os.cpus()"] = OS.cpus();
 
-    ChildProcess.exec("C:\\windows\\system32\\inetsrv\\appcmd.exe list site", { encoding:"utf8" }, (e, stdout, stderr) => {
+    var appcmd = process.env["windir"] + "\\system32\\inetsrv\\appcmd.exe";
+
+    ChildProcess.exec(appcmd + " list site", { encoding: "utf8" }, (e, stdout, stderr) => {
         if (e != null) {
             dict["appcmd_list_site_error"] = e;
         }
