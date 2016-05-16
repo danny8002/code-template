@@ -4,8 +4,6 @@
 import Express = require('express');
 
 import Authentication = require("../common/authentication");
-import Passport_ = require("passport");
-
 import IndexRoute = require('./index');
 import UsersRoute = require('./users');
 
@@ -20,7 +18,7 @@ export function registerAll(app: Express.Express): void {
     
 }
 
-export function ensureAuthenticated(req: Express.Request, res: Express.Response, next: Express.NextFunction): any {
+function ensureAuthenticated(req: Express.Request, res: Express.Response, next: Express.NextFunction): any {
     if (req.isAuthenticated()) {
         return next();
     }
@@ -43,8 +41,8 @@ function registerAuthRoute(app2: Express.Express): Express.Router {
         //console.log('redirect to /: ' + JSON.stringify(req));
         res.redirect('/');
     }
-
-var app = Express.Router();
+    
+    var app = Express.Router();
 
     // TODO: After login success, go to the the original URL
     app.get('/login', (req, res, next) => {
