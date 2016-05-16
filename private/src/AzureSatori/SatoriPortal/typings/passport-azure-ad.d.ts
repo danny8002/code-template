@@ -35,7 +35,9 @@ declare namespace PassportAzureAD {
         tenantName: string,
 
         /**
-         * when Azure AD authenticate successfully, it redirect to this
+         * when Azure AD authenticate successfully, it redirect to this, eg:
+         * http://localhost:3000/auth/openid/return
+         * or relative path: /auth/openid/return
          */
         callbackURL: string,
 
