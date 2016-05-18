@@ -9,19 +9,22 @@
         "sourceMap": true,
         "allowUnreachableCode": false,
         "noImplicitReturns": true,
-        "charset": "utf8"
+        "charset": "utf8",
+        "outDir": "./dist"
     },
-
     "files": [
         "app.ts",
-
         "common/sysinfo.ts",
         "common/authentication.ts",
-        
+        "common/backendservice.ts",
+        "common/satori-rest-client/configuration.ts",
+        "common/satori-rest-client/index.ts",
+        "common/satori-rest-client/jobservice.ts",
+        "common/satori-rest-client/requestutil.ts",
+        "common/satori-rest-client/utils.ts",
         "routes/main.ts",
         "routes/index.ts",
         "routes/users.ts",
-
         "models/HttpError.ts"
     ]
 }
