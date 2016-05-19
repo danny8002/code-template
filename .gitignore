@@ -1,6 +1,7 @@
 obj
 
 node_modules
+dist
 .idea
 .vs
 .tscache
