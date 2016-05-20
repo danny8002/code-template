@@ -20,6 +20,14 @@ router.get('/', function (req, res, next) {
     });
 });
 
+router.get('/newIndex', function (req, res, next) {
+    //res.render('index', { title: 'Express' });
+    //res.setHeader('Content-Type', 'text/html');
+    res.render('index', {
+        title: "Satori Portal Home"
+    });
+});
+
 router.get("/sysinfo", function (req, res, next) {
     Common.sysinfo(
         (e, d) => {
@@ -37,7 +45,7 @@ router.get("/sysinfo", function (req, res, next) {
 });
 
 router.get("/groups", function (req, res, next) {
-    
+
     var jbc = SatoriRestClient.jobServiceClient;
     jbc.getSecurityGroups(
         (e, d) => {

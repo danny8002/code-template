@@ -4,5 +4,54 @@ html
     title= title
     link(rel='stylesheet', href='/stylesheets/bootstrap.min.css')
     script(src='/javascripts/angular.min.js')
-  body
-    block content
+  .sp-header
+    nav.navbar.navbar-default
+      .container-fluid
+        .navbar-header
+          button.navbar-toggle.collapsed(type='button', data-toggle='collapse', data-target='#bs-example-navbar-collapse-2')
+            span.sr-only Toggle navigation
+            span.icon-bar(style='background-color: rgb(238, 222, 191) ! important;')
+            span.icon-bar(style='background-color: rgb(238, 222, 191) ! important;')
+            span.icon-bar(style='background-color: rgb(238, 222, 191) ! important;')
+          a.navbar-brand(href='#') Brand
+        .collapse.navbar-collapse
+          ul.nav.navbar-nav
+            li.active
+              a(href='#')
+                | Link 
+                span.sr-only (current)
+            li
+              a(href='#') Link
+            li.dropdown
+              a.dropdown-toggle(href='#', data-toggle='dropdown', role='button', aria-expanded='false', onclick='SPFXIndex.toggle(event)')
+                | Contribute 
+                span.caret
+              ul.dropdown-menu(style='background-color: rgb(238, 222, 191) ! important;', role='menu')
+                li
+                  a(href='#') Onboard Data
+                li.divider(style='background-color: rgb(216, 203, 177) ! important;', role='separator')
+                li
+                  a(href='#') Dashboard
+            li.dropdown
+              a.dropdown-toggle(href='#', data-toggle='dropdown', role='button', aria-expanded='false', onclick='SPFXIndex.toggle(event)')
+                | Consume 
+                span.caret
+              ul.dropdown-menu(style='background-color: rgb(238, 222, 191) ! important;', role='menu')
+                li
+                  a(href='#') Add new Answer
+                li.divider(style='background-color: rgb(216, 203, 177) ! important;', role='separator')
+                li
+                  a(href='#') Dashboard
+          ul.nav.navbar-nav.navbar-right
+            li
+              a(href='#') Link
+            li
+              div(title='Feedback', style='width: 20px; height: 20px; margin-top: 15px; margin-bottom: 15px;', href='')
+                svg(xmlns='http://www.w3.org/2000/svg', viewbox='0 0 32 32', focusable='false', xmlns:xlink='http://www.w3.org/1999/xlink', xmlns:svg='http://www.w3.org/2000/svg')
+                  path(d='M 16 0 C 7.16 0 0 7.16 0 16 s 7.16 16 16 16 s 16 -7.16 16 -16 S 24.84 0 16 0 Z M 16 30 C 8.28 30 2 23.72 2 16 S 8.28 2 16 2 s 14 6.28 14 14 S 23.72 30 16 30 Z M 22 14 c -1.1 0 -2 -0.9 -2 -2 s 0.9 -2 2 -2 s 2 0.9 2 2 S 23.1 14 22 14 Z M 10 14 c -1.1 0 -2 -0.9 -2 -2 s 0.9 -2 2 -2 s 2 0.9 2 2 S 11.1 14 10 14 Z M 24.93 20.47 C 23.29 23.74 19.91 26 16 26 c -3.91 0 -7.29 -2.26 -8.93 -5.53 l 1.79 -0.89 C 10.17 22.19 12.87 24 16 24 s 5.83 -1.81 7.15 -4.43 L 24.93 20.47 Z')
+            li
+              div(title='Support + Help', style='width: 20px; height: 20px; margin-top: 15px; margin-bottom: 15px;', href='')
+                svg(xmlns='http://www.w3.org/2000/svg', viewbox='0 0 22 22', focusable='false', xmlns:svg='http://www.w3.org/2000/svg', xmlns:xlink='http://www.w3.org/1999/xlink')
+                  path#XMLID_24132_(d='M 11 0 C 4.93 0 0 4.93 0 11 s 4.93 11 11 11 s 11 -4.93 11 -11 S 17.07 0 11 0 Z M 11 20.43 c -5.2 0 -9.43 -4.23 -9.43 -9.43 S 5.8 1.57 11 1.57 S 20.43 5.8 20.43 11 S 16.2 20.43 11 20.43 Z M 14.14 8.64 c 0 1.13 -0.52 2.18 -1.46 2.96 c -0.58 0.48 -0.89 1.1 -0.89 1.75 v 0.79 h -1.57 v -0.79 c 0 -1.13 0.52 -2.18 1.46 -2.96 c 0.58 -0.48 0.89 -1.1 0.89 -1.75 c 0 -0.87 -0.7 -1.57 -1.57 -1.57 c -0.95 0 -1.85 0.46 -2.54 1.29 l -1.21 -1 C 8.24 6.16 9.57 5.5 11 5.5 C 12.73 5.5 14.14 6.91 14.14 8.64 Z M 11.79 16.5 c 0 0.43 -0.35 0.79 -0.79 0.79 s -0.79 -0.35 -0.79 -0.79 s 0.35 -0.79 0.79 -0.79 S 11.79 16.07 11.79 16.5 Z')
+  block content
+  block script

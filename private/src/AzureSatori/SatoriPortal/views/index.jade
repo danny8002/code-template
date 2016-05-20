@@ -1,5 +1,34 @@
 extends layout
 
 block content
-  h1= title
-  p Welcome to #{title}
+  .sp-content
+    .container
+      h3(style='color: #A6ACA8') Welcome to Satori Portal
+      h1(style='margin-top: -5px; color: #A6ACA8;') What would you like to do?
+      .row
+        .col-md-4.col-xs-6
+          .navigation-container.contribute
+            .satori-navigation.navigation-text.header Bring Your Own Entity Data
+            a.contribute-data-navigation.navigation-image(title='Bring Your Own Entity Data', href='/SatoriPortal/Satori/Contribute')
+            .contribute-data-navigation.navigation-text.link
+              a(href='/SatoriPortal/Satori/Contribute/Onboard') + Add New Data
+              hr
+            .contribute-data-navigation.navigation-text.link
+              a(href='/SatoriPortal/Satori/Contribute/Dashboard') Dashboard
+              hr
+        .col-md-4.col-xs-6
+          .navigation-container.consume
+            .satori-navigation.navigation-text.header Consume Satori data
+            a.consume-data-navigation.navigation-image(title='Consume satori data', href='/SatoriPortal/Satori/OpenAnswer/Overview')
+            .consume-data-navigation.navigation-text.link
+              a(href='/SatoriPortal/Satori/OpenAnswer/Create') + Add New Answer
+              hr
+            .consume-data-navigation.navigation-text.link
+              a(href='/SatoriPortal/Satori/OpenAnswer/Overview') Dashboard
+              hr
+            .consume-data-navigation.navigation-text.link
+              a(href='/SatoriPortal/Satori/OpenAnswer/Drafts') Drafts
+              
+block script
+  script(src='/javascript/custom/sp.js')
+  script(src='/javascript/custom/spfx.js')
