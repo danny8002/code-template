@@ -1,6 +1,7 @@
 /// <reference path="main/ambient/body-parser/index.d.ts" />
 /// <reference path="main/ambient/callsite/index.d.ts" />
 /// <reference path="main/ambient/cookie-parser/index.d.ts" />
+/// <reference path="main/ambient/ejs/index.d.ts" />
 /// <reference path="main/ambient/express-serve-static-core/index.d.ts" />
 /// <reference path="main/ambient/express-session/index.d.ts" />
 /// <reference path="main/ambient/express/index.d.ts" />

@@ -9,8 +9,7 @@
         "sourceMap": true,
         "allowUnreachableCode": false,
         "noImplicitReturns": true,
-        "charset": "utf8",
-        "outDir": "dist/"
+        "charset": "utf8"
     },
     "files": [
         "app.ts",
