@@ -1,4 +1,4 @@
-/// <reference path="../../typings/main.d.ts" />
+/// <reference path="../typings/main.d.ts" />
 import fs_ = require("fs");
 
 export interface FileAndStat {
@@ -48,8 +48,4 @@ export function merge(dest: { [key: string]: any }, src: { [key: string]: any })
         d[k] = s[k];
     }
     return d;
-}
-
-export function extractLayoutData(): { [key: string]: any } {
-
 }

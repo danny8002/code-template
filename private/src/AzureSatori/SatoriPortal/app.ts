@@ -1,7 +1,7 @@
 /// <reference path="typings/main.d.ts" />
 /// <reference path="routes/main.ts" />
 /// <reference path="models/main.d.ts" />
-/// <reference path="common/util/index.ts" />
+/// <reference path="common/util.ts" />
 
 import Express = require('express');
 import Path = require('path');

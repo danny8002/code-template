@@ -1,21 +1,25 @@
 ﻿/// <reference path="../typings/main.d.ts" />
 /// <reference path="../common/authentication.ts" />
 
+/// <reference path="./index.ts" />
+/// <reference path="./admin.ts" />
+/// <reference path="./users.ts" />
+
 import Express = require('express');
 
 import Authentication = require("../common/authentication");
 import IndexRoute = require('./index');
 import UsersRoute = require('./users');
-
+import adminRoute_ = require('./admin');
 
 export function registerAll(app: Express.Express): void {
-    
+
     // TODO: here find the reason why should put /login before /
     app.use('/', registerAuthRoute(null));
-        
+
     app.use('/', ensureAuthenticated, <Express.Router>IndexRoute);
     app.use('/users', ensureAuthenticated, <Express.Router>UsersRoute);
-    
+    app.use('/admin', ensureAuthenticated, <Express.Router>adminRoute_);
 }
 
 function ensureAuthenticated(req: Express.Request, res: Express.Response, next: Express.NextFunction): any {
@@ -23,7 +27,7 @@ function ensureAuthenticated(req: Express.Request, res: Express.Response, next: 
         return next();
     }
     else {
-        console.log('redirect to /login because no auth: '+req.url);
+        console.log('redirect to /login because no auth: ' + req.url);
         return res.redirect('/login');
     }
 }
@@ -41,7 +45,7 @@ function registerAuthRoute(app2: Express.Express): Express.Router {
         //console.log('redirect to /: ' + JSON.stringify(req));
         res.redirect('/');
     }
-    
+
     var app = Express.Router();
 
     // TODO: After login success, go to the the original URL
@@ -75,6 +79,6 @@ function registerAuthRoute(app2: Express.Express): Express.Router {
         req.logout();
         res.redirect('/');
     });
-    
+
     return app;
 }

@@ -6,6 +6,7 @@
 /// <reference path="main/ambient/express-session/index.d.ts" />
 /// <reference path="main/ambient/express/index.d.ts" />
 /// <reference path="main/ambient/fs-extra/index.d.ts" />
+/// <reference path="main/ambient/lodash/index.d.ts" />
 /// <reference path="main/ambient/log4js/index.d.ts" />
 /// <reference path="main/ambient/mime/index.d.ts" />
 /// <reference path="main/ambient/morgan/index.d.ts" />

@@ -96,7 +96,8 @@ module.exports = function (grunt) {
 						src: [
 							"**",
 							"!node_modules/**",
-							"!" + outDir + "**"
+							"!obj/**",
+							"!" + outDir + "/**"
 						],
 						dest: outDir,
 						filter: 'isFile'
@@ -111,6 +112,7 @@ module.exports = function (grunt) {
 	grunt.loadNpmTasks('grunt-contrib-watch');
 	grunt.loadNpmTasks('grunt-contrib-copy');
 
-	grunt.registerTask("default", ["ts:default", "less:dev", "copy:default"]);
+	grunt.registerTask("default", ["ts:default", "less:dev"]);
+	grunt.registerTask("dev", ["ts:default", "less:dev", "copy:default"]);
 	grunt.registerTask("prod", ["ts:default", "less:prod", "copy:default"]);
 }

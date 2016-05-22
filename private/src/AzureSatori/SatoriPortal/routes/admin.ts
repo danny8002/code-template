@@ -2,7 +2,7 @@
 /// <reference path="../common/sysinfo.ts" />
 /// <reference path="../common/backendservice.ts" />
 /// <reference path="../common/layoutRender.ts" />
-/// <reference path="../common/layoutUtil.ts" />
+
 
 import Express = require('express');
 import Path = require('path');
@@ -10,34 +10,10 @@ import Path = require('path');
 import Common = require("../common/sysinfo");
 import SatoriRestClient = require("../common/backendservice");
 import layoutRender_ = require("../common/layoutRender");
-import layoutUtil_ = require("../common/layoutUtil");
 
-var router = Express.Router();
-var root = Path.resolve(__dirname, '..');
+var router_ = Express.Router();
 
-/* GET home page. */
-router.get('/', function (req, res, next) {
-    //res.render('index', { title: 'Express' });
-    //res.setHeader('Content-Type', 'text/html');
-    res.sendFile('views/index.html', { root: root }, <Express.Errback>function (err) {
-        if (err) return next(err);
-    });
-});
-
-router.get('/newIndex', function (req, res, next) {
-
-    layoutRender_.renderHtml(
-        "index2",
-        layoutUtil_.extractLayoutData(req, res)({
-            title: "Satori Portal Home"
-        }),
-        function (e, h) {
-            if (e != null) return next(e);
-            res.send(h);
-        });
-});
-
-router.get("/sysinfo", function (req, res, next) {
+router_.get("/sysinfo", function (req, res, next) {
     Common.sysinfo(
         (e, d) => {
             if (e != null) {
@@ -53,7 +29,7 @@ router.get("/sysinfo", function (req, res, next) {
     );
 });
 
-router.get("/groups", function (req, res, next) {
+router_.get("/groups", function (req, res, next) {
 
     var jbc = SatoriRestClient.jobServiceClient;
     jbc.getSecurityGroups(
@@ -67,5 +43,4 @@ router.get("/groups", function (req, res, next) {
         }
     );
 });
-
-module.exports = router;
+module.exports = router_;
