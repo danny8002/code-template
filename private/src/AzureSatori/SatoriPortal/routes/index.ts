@@ -1,12 +1,15 @@
 /// <reference path="../typings/main.d.ts" />
 /// <reference path="../common/sysinfo.ts" />
 /// <reference path="../common/backendservice.ts" />
+/// <reference path="../common/layoutRender.ts" />
+
 
 import Express = require('express');
 import Path = require('path');
 
 import Common = require("../common/sysinfo");
 import SatoriRestClient = require("../common/backendservice");
+import layoutRender_ = require("../common/layoutRender");
 
 var router = Express.Router();
 var root = Path.resolve(__dirname, '..');
@@ -21,11 +24,17 @@ router.get('/', function (req, res, next) {
 });
 
 router.get('/newIndex', function (req, res, next) {
-    //res.render('index', { title: 'Express' });
-    //res.setHeader('Content-Type', 'text/html');
-    res.render('index', {
-        title: "Satori Portal Home"
-    });
+
+    layoutRender_.renderHtml(
+        "index2"
+        , {
+            title: "Satori Portal Home",
+            user:"Zhiyuan Wang"
+        }
+        , function (e, h) {
+            if (e != null) return next(e);
+            res.send(h);
+        });
 });
 
 router.get("/sysinfo", function (req, res, next) {

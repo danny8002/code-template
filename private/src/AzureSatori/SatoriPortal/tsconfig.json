@@ -13,6 +13,8 @@
     },
     "files": [
         "app.ts",
+        "common/logger.ts",
+        "common/layoutRender.ts",
         "common/sysinfo.ts",
         "common/authentication.ts",
         "common/backendservice.ts",
@@ -21,6 +23,7 @@
         "common/satori-rest-client/jobservice.ts",
         "common/satori-rest-client/requestutil.ts",
         "common/satori-rest-client/utils.ts",
+        "common/util/index.ts",
         "routes/main.ts",
         "routes/index.ts",
         "routes/users.ts",

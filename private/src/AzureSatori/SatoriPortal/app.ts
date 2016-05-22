@@ -1,6 +1,7 @@
 /// <reference path="typings/main.d.ts" />
 /// <reference path="routes/main.ts" />
 /// <reference path="models/main.d.ts" />
+/// <reference path="common/util/index.ts" />
 
 import Express = require('express');
 import Path = require('path');
@@ -13,6 +14,8 @@ import CookieParser = require('cookie-parser');
 import BodyParser = require('body-parser');
 
 import RouteCollection = require('./routes/main');
+
+import util_ = require("./common/util");
 
 var app = Express();
 
@@ -45,27 +48,13 @@ app.use(<Express.RequestHandler>function (req, res, next) {
 
 // development error handler
 // will print stacktrace
-    app.use(<Express.ErrorRequestHandler>function (err, req, res, next) {
-        res.status(err.status || 500);
-        res.render('error', {
-            message: err.message,
-            error: err
-        });
+app.use(<Express.ErrorRequestHandler>function (err, req, res, next) {
+    res.status(err.status || 500);
+    res.render('error', {
+        message: err.message,
+        error: util_.isProduction() ? {} : err
     });
-    
-if (app.get('env') === 'development') {
-
-}
-
-// production error handler
-// no stacktraces leaked to user
-// app.use(<Express.ErrorRequestHandler>function (err, req, res, next) {
-//     res.status(err.status || 500);
-//     res.render('error', {
-//         message: err.message,
-//         error: {}
-//     });
-// });
+});
 
 
 module.exports = app;
