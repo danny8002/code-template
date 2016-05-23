@@ -13,7 +13,7 @@
     "ejs": "2.4.1",
     "express": "4.13.1",
     "express-session": "^1.13.0",
-    "lodash": "^4.12.0",
+    "lodash": "4.12.0",
     "morgan": "~1.6.1",
     "passport": "^0.3.2",
     "passport-azure-ad": "~1.4.5",

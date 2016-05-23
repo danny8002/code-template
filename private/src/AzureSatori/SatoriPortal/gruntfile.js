@@ -68,6 +68,8 @@ module.exports = function (grunt) {
 		if (tsFiles.indexOf(f) < 0) throw new Error("Cannot find [" + f + "] in desk!");
 	})
 
+	console.log(JSON.stringify(tsConfig.files.sort(), null, 4));
+
 	grunt.initConfig({
 		pkg: grunt.file.readJSON('package.json'),
 		ts: {

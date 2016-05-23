@@ -13,22 +13,22 @@
     },
     "files": [
         "app.ts",
-        "common/logger.ts",
-        "common/layoutRender.ts",
-        "common/layoutUtil.ts",
-        "common/sysinfo.ts",
         "common/authentication.ts",
         "common/backendservice.ts",
+        "common/layoutRender.ts",
+        "common/layoutUtil.ts",
+        "common/logger.ts",
         "common/satori-rest-client/configuration.ts",
         "common/satori-rest-client/index.ts",
         "common/satori-rest-client/jobservice.ts",
         "common/satori-rest-client/requestutil.ts",
         "common/satori-rest-client/utils.ts",
+        "common/sysinfo.ts",
         "common/util.ts",
+        "models/HttpError.ts",
         "routes/admin.ts",
-        "routes/main.ts",
         "routes/index.ts",
-        "routes/users.ts",
-        "models/HttpError.ts"
+        "routes/main.ts",
+        "routes/users.ts"
     ]
 }
