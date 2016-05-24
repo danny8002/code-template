@@ -4,8 +4,8 @@
  * Initialize
  */
 
-var log = require("./common/logger");
-log.configure();
+// var log = require("./common/logger");
+// log.configure();
 
 var layoutRender = require("./common/layoutRender");
 layoutRender.configure("./views",false);

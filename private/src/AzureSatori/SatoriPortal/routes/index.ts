@@ -16,20 +16,26 @@ var router = Express.Router();
 var root = Path.resolve(__dirname, '..');
 
 /* GET home page. */
-router.get('/', function (req, res, next) {
-    //res.render('index', { title: 'Express' });
-    //res.setHeader('Content-Type', 'text/html');
-    res.sendFile('views/index.html', { root: root }, <Express.Errback>function (err) {
-        if (err) return next(err);
-    });
-});
+// router.get('/', function (req, res, next) {
+//     //res.render('index', { title: 'Express' });
+//     //res.setHeader('Content-Type', 'text/html');
+//     res.sendFile('views/index.html', { root: root }, <Express.Errback>function (err) {
+//         if (err) return next(err);
+//     });
+// });
 
-router.get('/newIndex', function (req, res, next) {
+
+/* GET home page. */
+
+router.get('/', function (req, res, next) {
 
     layoutRender_.renderHtml(
         "index2",
         layoutUtil_.extractLayoutData(req, res)({
-            title: "Satori Portal Home"
+            title: "Satori Portal Home",
+            headerScripts: ["/javascripts/angular.min.js"],
+            footerScripts: ["/javascripts/homepage/sp.js", "/javascripts/homepage/spfx.js"],
+            otherCss: []
         }),
         function (e, h) {
             if (e != null) return next(e);
