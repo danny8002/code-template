@@ -19,11 +19,13 @@
         "common/layoutUtil.ts",
         "common/logger/index.ts",
         "common/logger/logger.ts",
+        "common/routerUtil.ts",
         "common/satori-rest-client/configuration.ts",
         "common/satori-rest-client/index.ts",
         "common/satori-rest-client/jobservice.ts",
         "common/satori-rest-client/requestutil.ts",
         "common/satori-rest-client/utils.ts",
+        "common/satori-rest-client/TenantManager.ts",
         "common/sysinfo.ts",
         "common/util.ts",
         "models/HttpError.ts",
@@ -32,6 +34,7 @@
         "routes/admin.ts",
         "routes/index.ts",
         "routes/main.ts",
-        "routes/users.ts"
+        "routes/users.ts",
+        "routes/contribute.ts"
     ]
 }

@@ -1,0 +1,168 @@
+[2016-05-26 09:59:41.984] [INFO] [default] - load app
+[2016-05-26 09:59:42.536] [INFO] console - Use strategy to authenticate: azuread-openidconnect
+[2016-05-26 09:59:42.541] [INFO] [default] - Listening on port 3000
+[2016-05-26 09:59:50.440] [INFO] console - redirect to /login because no auth: /
+[2016-05-26 09:59:55.026] [INFO] console - Strategy Verification:  { iss: 'https://sts.windows.net/72f988bf-86f1-41af-91ab-2d7cd011db47/',
+  sub: 'b6t1SsDbZioFpx64NBLtyFmKy_n2-DXnSgwpGoOUXgE',
+  profile: 
+   { id: 'b6t1SsDbZioFpx64NBLtyFmKy_n2-DXnSgwpGoOUXgE',
+     displayName: 'Zhiyuan Wang',
+     name: 
+      { familyName: 'Wang',
+        givenName: 'Zhiyuan',
+        middleName: undefined },
+     email: 'zhiw@microsoft.com',
+     _raw: '{"aud":"92ca347b-afd3-490c-bace-4eec5846c732","iss":"https://sts.windows.net/72f988bf-86f1-41af-91ab-2d7cd011db47/","iat":1464227694,"nbf":1464227694,"exp":1464231594,"amr":["pwd"],"family_name":"Wang","given_name":"Zhiyuan","in_corp":"true","ipaddr":"167.220.232.250","name":"Zhiyuan Wang","nonce":"fnSco3CMofyzjrLw","oid":"88f1f0a8-336d-45f1-96fb-f1c62768f5e0","onprem_sid":"S-1-5-21-2146773085-903363285-719344707-1548601","sub":"b6t1SsDbZioFpx64NBLtyFmKy_n2-DXnSgwpGoOUXgE","tid":"72f988bf-86f1-41af-91ab-2d7cd011db47","unique_name":"zhiw@microsoft.com","upn":"zhiw@microsoft.com","ver":"1.0"}',
+     _json: 
+      { aud: '92ca347b-afd3-490c-bace-4eec5846c732',
+        iss: 'https://sts.windows.net/72f988bf-86f1-41af-91ab-2d7cd011db47/',
+        iat: 1464227694,
+        nbf: 1464227694,
+        exp: 1464231594,
+        amr: [Object],
+        family_name: 'Wang',
+        given_name: 'Zhiyuan',
+        in_corp: 'true',
+        ipaddr: '167.220.232.250',
+        name: 'Zhiyuan Wang',
+        nonce: 'fnSco3CMofyzjrLw',
+        oid: '88f1f0a8-336d-45f1-96fb-f1c62768f5e0',
+        onprem_sid: 'S-1-5-21-2146773085-903363285-719344707-1548601',
+        sub: 'b6t1SsDbZioFpx64NBLtyFmKy_n2-DXnSgwpGoOUXgE',
+        tid: '72f988bf-86f1-41af-91ab-2d7cd011db47',
+        unique_name: 'zhiw@microsoft.com',
+        upn: 'zhiw@microsoft.com',
+        ver: '1.0' } },
+  accessToken: 'AAABAAAAiL9Kn2Z27UubvWFPbm0gLdgeXEeW8kAH_vrSWKAVBv_iCPoFaL03YvVGDS9JDGm9ZKW5qSBwR-4o_y2pNYM2VwSeclsvzr7YMmH7Gkbnfqo0-12Jqk9ICTiSi-Nd_l9ydNP9ZRTLHve87BF1TCGGORS7tlTiUaZ5NN7FgIfWhLwXwqZFIAqTLQPk8dtf8n-PbNM_JZu4WlFm3HOBAcv3B0wJDXhACA1TUk_9FQONoC7QC_y6QDOJscQiXVSVCM2PBWfKj8BAQZuPbv6RNAGCO5OhFVh8a4XqyGSv1tBn3gG78oKrAKvY7S1nKk4CGF00VoltoyW2YkeXQPAG4irmikN-5bZKmB68ow6UPRSQUGyPv0_FQR1cGxttC3ryqApv2_H-GSzv5ey7aiqhJxzwlSvPFuiKhn2rgvQxdVTanrrz5X9q7RjY8J9dksosAxGQsnmW463K8WgrR2b4pFKqonDcDviG9ucepVZn00dqdLyXIwI-u4_15TMB-gviWXMLZptBdJIUrpskQORTir222ToCjA2jaOTILd34ZeZaBEaF50UHV3W3TwVscqypEu6vSHji1NGA3ATXz_bZ6H3IASAA',
+  refreshToken: 'AAABAAAAiL9Kn2Z27UubvWFPbm0gLXXdo-AJJPsUHLLY0SWNfQBAjFGmWovYMQcaTVrvQNmv-IquhPq2Pp8p2PwU1Idqsm_Vt385Y362X2VcmRQPL6aN83eP-CpELBrZI6iJxFKC3rJVosU_z3BP_oBezhAzJkEK1S8brwysH4eVvGOer-4p8XU5eZdvcQNi1I-rEo1uYCZ_nk_DlTwbb59Ap2gKD4igBKkMVn5v8TZDeomVld8POoAhRjKrV4KDJHMfP2QAZNpUrl_G2DfpLfjTQ-8MS3k0tuPEj2KsTplEBR6vkk3AS4I4B7E82FH-tU_fl7BKBWgT5pwvqBB06GxVbXv8tVT9crpz3z_XCnVmMdo3Fa4LuDw7QOjUhkvFgDVViCBxklJJavLVS1V_2YyKDT5rDkYgd6kptLE8RTZUfc4YbCX0WYmVR2DIPaF0eIReiqJSF6pRkS0wB8Pu0rLAKC_Qk3KhZit2pwOh5XVTf6AD03hH6RLuFAKbzy2VrFu-ExBs3tt0KjQ9PUU2_-kQgdoCZdzg4LlCB4i5qGeCTLlk53y32gEIK6D6bNcinHfD1YorlrWLsM8K0hLJA5wK4pfyvu6dsm6VUJbZouRhWP8oLPGUh8G4eHRD12ACZYTUpkP-KCuLXcTnFAV2PJLRq4zK7Z3XYUdP85uIIFsNUSnx_7mBAUY6dW7SotUqvf-3YIaMYrZDzTHtHMwA5JvY6oZVuzlCYRX8LmH1FMG8Z2_I4XAgAA' }
+[2016-05-26 09:59:56.797] [INFO] console - Strategy Verification:  { iss: 'https://sts.windows.net/72f988bf-86f1-41af-91ab-2d7cd011db47/',
+  sub: 'b6t1SsDbZioFpx64NBLtyFmKy_n2-DXnSgwpGoOUXgE',
+  profile: 
+   { id: 'b6t1SsDbZioFpx64NBLtyFmKy_n2-DXnSgwpGoOUXgE',
+     displayName: 'Zhiyuan Wang',
+     name: 
+      { familyName: 'Wang',
+        givenName: 'Zhiyuan',
+        middleName: undefined },
+     email: 'zhiw@microsoft.com',
+     _raw: '{"aud":"92ca347b-afd3-490c-bace-4eec5846c732","iss":"https://sts.windows.net/72f988bf-86f1-41af-91ab-2d7cd011db47/","iat":1464227696,"nbf":1464227696,"exp":1464231596,"amr":["pwd"],"family_name":"Wang","given_name":"Zhiyuan","in_corp":"true","ipaddr":"167.220.232.250","name":"Zhiyuan Wang","nonce":"asWPcKGozkAh8Jz5","oid":"88f1f0a8-336d-45f1-96fb-f1c62768f5e0","onprem_sid":"S-1-5-21-2146773085-903363285-719344707-1548601","sub":"b6t1SsDbZioFpx64NBLtyFmKy_n2-DXnSgwpGoOUXgE","tid":"72f988bf-86f1-41af-91ab-2d7cd011db47","unique_name":"zhiw@microsoft.com","upn":"zhiw@microsoft.com","ver":"1.0"}',
+     _json: 
+      { aud: '92ca347b-afd3-490c-bace-4eec5846c732',
+        iss: 'https://sts.windows.net/72f988bf-86f1-41af-91ab-2d7cd011db47/',
+        iat: 1464227696,
+        nbf: 1464227696,
+        exp: 1464231596,
+        amr: [Object],
+        family_name: 'Wang',
+        given_name: 'Zhiyuan',
+        in_corp: 'true',
+        ipaddr: '167.220.232.250',
+        name: 'Zhiyuan Wang',
+        nonce: 'asWPcKGozkAh8Jz5',
+        oid: '88f1f0a8-336d-45f1-96fb-f1c62768f5e0',
+        onprem_sid: 'S-1-5-21-2146773085-903363285-719344707-1548601',
+        sub: 'b6t1SsDbZioFpx64NBLtyFmKy_n2-DXnSgwpGoOUXgE',
+        tid: '72f988bf-86f1-41af-91ab-2d7cd011db47',
+        unique_name: 'zhiw@microsoft.com',
+        upn: 'zhiw@microsoft.com',
+        ver: '1.0' } },
+  accessToken: 'AAABAAAAiL9Kn2Z27UubvWFPbm0gLTE4hAbhCBDyYwdZBYAGnWq9XAHb3fE6VgFSL92WhUpb_irF8HF8GQlmllW1nF6Z7aoc39oEySKLgNMFEam_chECTBh_7wYMrqP_1m98Ne6a7a6vMXIeMF-J4Nv4_eCgUdSaTdLhyhzWxqI1jVkhd7dlvGpZZ93jZbdOV9-LXxfEOx4oN08yr0SsJFfBnFUTKkkR0kdZEGyBW4wuVpxxV2F-veVdTOXPLp4aXYGFGVok_ox3xyT2MPxk_OqsF0lq4Y8UqA59nVoE3LKH5CTcaj-S5VpplgSDHrioQK_F3oLVZvSrR9baMCVeqpDILPxZtZXV2JbVsk7vZpkV6u-yK1p3RCbUH6eUpYblk5kL894FDurJas70HLnjGKn8YHFiacfAUQVz56AqopNqGaq-U2IxS8PZ4WO7lxDQKxCUquLtZ8G_jofvYmYTJYaZ11Q-aq8v1uuRCP8FiOeqp5iLPeBW4ZllF6dFq5Y8jTTMcEsTadTZpn-Rpr0YnrMQs1WUGVUKLjCih6QHnXXLBfAkyNRoB__6cUOd9-flAN45P3AgJA-6g2ATl0VgK72xvo0i8CAA',
+  refreshToken: 'AAABAAAAiL9Kn2Z27UubvWFPbm0gLREQGho8qJpcmOVw-PS5j-IlOsepRTiSvhK3CGzINsDFykyyqZWxbpyYa5b4YEvakQUAdSiZ0eXv1VrCpbMymz6nsGIBDkAd42vWkLZlgqOT-Y9hVOz7d6qNAUtyKKWgJ41xdtepbN0JUvngGdfn7Opi-p3Msdnf_9m3_uA30uYNRRUAJ-FXk1FAHys5n_2Rpovmqq67F7Ypx-lVaAIMuAJxaoqzB0rE8iPkbr_JzCcfMy4RwfrkrxIZhPOQ_5ULWBUAori7qINgCb_vFZG8oG8N8yyI48Ap5zQhQmbQjtPKD3dK1QPSSfxN0-f-vB9fZshYLHD5fIC5ChPGW1QVj3CaBLzfLskNGv5Y5BqPjl5F43tVqUW3XezgSzy0uxT56qnRqpB9enqMPWIS2SdH97F1ZdXku6jeajuLVPUMwc0-VIeLDjnK8JrKNGZY5ElRGTEmke0obbfU43QM7_nmOAOeD0YpG2PHyoonzPtDTrnhY16yOUeaI33FmpgW1XKxWuGGt7iV74ESOKyGeBTjdhJLwnVaSfA4oBxJOlbp_cxnZnTQjbK9ZwkBBirSO5bYRfvO-RJNP9SZzHV8d5QRyZzn5cTXPf9DniWrVixM6mXXPpQ0i1xMPBeTaj4IxwJp7YFDPJdPXtpbu9JVyOG_zvrVHubJwZ1pNUMYCaqA9_floo9lgSssiGeE-_1hrB0UIEnt3s6RiZvGVCexW5qiuTIgAA' }
+[2016-05-26 09:59:56.865] [INFO] console - serializeUser: {"id":"b6t1SsDbZioFpx64NBLtyFmKy_n2-DXnSgwpGoOUXgE","displayName":"Zhiyuan Wang","name":{"familyName":"Wang","givenName":"Zhiyuan"},"email":"zhiw@microsoft.com","_raw":"{\"aud\":\"92ca347b-afd3-490c-bace-4eec5846c732\",\"iss\":\"https://sts.windows.net/72f988bf-86f1-41af-91ab-2d7cd011db47/\",\"iat\":1464227694,\"nbf\":1464227694,\"exp\":1464231594,\"amr\":[\"pwd\"],\"family_name\":\"Wang\",\"given_name\":\"Zhiyuan\",\"in_corp\":\"true\",\"ipaddr\":\"167.220.232.250\",\"name\":\"Zhiyuan Wang\",\"nonce\":\"fnSco3CMofyzjrLw\",\"oid\":\"88f1f0a8-336d-45f1-96fb-f1c62768f5e0\",\"onprem_sid\":\"S-1-5-21-2146773085-903363285-719344707-1548601\",\"sub\":\"b6t1SsDbZioFpx64NBLtyFmKy_n2-DXnSgwpGoOUXgE\",\"tid\":\"72f988bf-86f1-41af-91ab-2d7cd011db47\",\"unique_name\":\"zhiw@microsoft.com\",\"upn\":\"zhiw@microsoft.com\",\"ver\":\"1.0\"}","_json":{"aud":"92ca347b-afd3-490c-bace-4eec5846c732","iss":"https://sts.windows.net/72f988bf-86f1-41af-91ab-2d7cd011db47/","iat":1464227694,"nbf":1464227694,"exp":1464231594,"amr":["pwd"],"family_name":"Wang","given_name":"Zhiyuan","in_corp":"true","ipaddr":"167.220.232.250","name":"Zhiyuan Wang","nonce":"fnSco3CMofyzjrLw","oid":"88f1f0a8-336d-45f1-96fb-f1c62768f5e0","onprem_sid":"S-1-5-21-2146773085-903363285-719344707-1548601","sub":"b6t1SsDbZioFpx64NBLtyFmKy_n2-DXnSgwpGoOUXgE","tid":"72f988bf-86f1-41af-91ab-2d7cd011db47","unique_name":"zhiw@microsoft.com","upn":"zhiw@microsoft.com","ver":"1.0"}}
+[2016-05-26 09:59:56.900] [INFO] console - We received a return from AzureAD!
+[2016-05-26 09:59:56.904] [INFO] console - deserializeUser { id: 'zhiw@microsoft.com' }
+[2016-05-26 10:06:12.122] [INFO] RunService - load app
+[2016-05-26 10:06:12.122] [INFO] RunService - load app
+[2016-05-26 10:06:12.716] [INFO] console - Use strategy to authenticate: azuread-openidconnect
+[2016-05-26 10:06:12.721] [INFO] RunService - Listening on port 3000
+[2016-05-26 10:06:12.721] [INFO] RunService - Listening on port 3000
+[2016-05-26 10:09:43.731] [INFO] RunService - load app
+[2016-05-26 10:09:43.731] [INFO] RunService - load app
+[2016-05-26 10:09:44.265] [INFO] console - Use strategy to authenticate: azuread-openidconnect
+[2016-05-26 10:09:44.266] [INFO] RunService - process.env.PORT = undefined
+[2016-05-26 10:09:44.266] [INFO] RunService - process.env.PORT = undefined
+[2016-05-26 10:09:44.267] [INFO] RunService - set app port: 3000
+[2016-05-26 10:09:44.267] [INFO] RunService - set app port: 3000
+[2016-05-26 10:09:44.272] [INFO] RunService - Listening on port 3000
+[2016-05-26 10:09:44.272] [INFO] RunService - Listening on port 3000
+[2016-05-26 10:10:03.874] [INFO] console - redirect to /login because no auth: /
+[2016-05-26 10:10:07.702] [INFO] console - Strategy Verification:  { iss: 'https://sts.windows.net/72f988bf-86f1-41af-91ab-2d7cd011db47/',
+  sub: 'b6t1SsDbZioFpx64NBLtyFmKy_n2-DXnSgwpGoOUXgE',
+  profile: 
+   { id: 'b6t1SsDbZioFpx64NBLtyFmKy_n2-DXnSgwpGoOUXgE',
+     displayName: 'Zhiyuan Wang',
+     name: 
+      { familyName: 'Wang',
+        givenName: 'Zhiyuan',
+        middleName: undefined },
+     email: 'zhiw@microsoft.com',
+     _raw: '{"aud":"92ca347b-afd3-490c-bace-4eec5846c732","iss":"https://sts.windows.net/72f988bf-86f1-41af-91ab-2d7cd011db47/","iat":1464228307,"nbf":1464228307,"exp":1464232207,"amr":["pwd"],"family_name":"Wang","given_name":"Zhiyuan","in_corp":"true","ipaddr":"167.220.232.250","name":"Zhiyuan Wang","nonce":"JwP8A4mGETwnG9VY","oid":"88f1f0a8-336d-45f1-96fb-f1c62768f5e0","onprem_sid":"S-1-5-21-2146773085-903363285-719344707-1548601","sub":"b6t1SsDbZioFpx64NBLtyFmKy_n2-DXnSgwpGoOUXgE","tid":"72f988bf-86f1-41af-91ab-2d7cd011db47","unique_name":"zhiw@microsoft.com","upn":"zhiw@microsoft.com","ver":"1.0"}',
+     _json: 
+      { aud: '92ca347b-afd3-490c-bace-4eec5846c732',
+        iss: 'https://sts.windows.net/72f988bf-86f1-41af-91ab-2d7cd011db47/',
+        iat: 1464228307,
+        nbf: 1464228307,
+        exp: 1464232207,
+        amr: [Object],
+        family_name: 'Wang',
+        given_name: 'Zhiyuan',
+        in_corp: 'true',
+        ipaddr: '167.220.232.250',
+        name: 'Zhiyuan Wang',
+        nonce: 'JwP8A4mGETwnG9VY',
+        oid: '88f1f0a8-336d-45f1-96fb-f1c62768f5e0',
+        onprem_sid: 'S-1-5-21-2146773085-903363285-719344707-1548601',
+        sub: 'b6t1SsDbZioFpx64NBLtyFmKy_n2-DXnSgwpGoOUXgE',
+        tid: '72f988bf-86f1-41af-91ab-2d7cd011db47',
+        unique_name: 'zhiw@microsoft.com',
+        upn: 'zhiw@microsoft.com',
+        ver: '1.0' } },
+  accessToken: 'AAABAAAAiL9Kn2Z27UubvWFPbm0gLbVYu87EOqQp-S7NVmUl4VO2vk_piXOOEQCgg6y75XeM3py9kt20b4naA2cwHqQAjjAqS9d-cFH1vmkfGwO8Q3GFLeeM45pEx2JnQR80P2pZV4t_AWkENux4Pg1YMUMEpBPRRUsajpsYO7sR7GI90F9O9CGm73uYU3bqyXyy8Cl8b_UWilXMFxSOXy2_6hH-3P6qOTMuhY_6JFSmU1zcCMuFOJI2eRrNtw3GKfxdELxo2HBZgstOFfD2I3b1GSsXv0a1D3njPBUmpsV1kxjHlHiCguJ2ki0dz2KGJ4AIqcsvvVrWuJR_a7ybyOJ-s-uz3SlAgAMEx0M6a4F6gJl6WuwoHc5MUyBk3aPErzCo26xyx0vigJ0FB1GRZYVcihrtjVKidEhu5MyRNSXnLR1yvK9ALa1-vkAJ4Q-bbg4BWpf9QH1gPylNH6nQo0KgbjT5FpbTbZ48VD6MPFztN_k9Hd4V7loAKrnjbkHns0e46WerQLdUP7bNYCJTNss5gYSmh9GQw02_fuAsBkO-YI-Q1qVyHp6rxKLlz3Ybw5g5XRM28sDSzxPQb5ac6g-Tib_ngiAA',
+  refreshToken: 'AAABAAAAiL9Kn2Z27UubvWFPbm0gLSzBCjcRNe1YwHh4xKx72RvclYuonWc6Zcb2b7YrM7hFFLymEtAgw9uQTijh1Jt2QrTSI2QrCRN3Dly8aNoW3MGOWoo0w227PjHDef0UiaQk5S4fMpqbkjgDSUvg66nQBfVQEazwsG_xf0exFaREPNpvNTD9IPrxmgcUVbwVz1xw3SJn7YJE641HI0R3hvfZ-3nO6kM47iT_5zhCDZPYthW1-kqzaCQgvADHzPygIT8MTBKFN7uYcaRcImbHcY30mNsHTWSPNVjdhkvuKhaPOLIaFbUWZAYEIikJ9nY6OIJKWC7-iWmV17p0dYighby8Ir51ZQMLURYDUUoAHxuExZhzgAOvnJDLONAuF-Tu5lf5nT4DK391rbHwEWjqcVbJesNx0nJlB7DMWoFk-7bM43kMCxrlT06CYOW5MfYaPJ2etuKC1cw2xmewxkqbDxC5FkBs-YBNYtSKiNJg38YADdzxwmAh7aGAptK7g_NYNwBk7atGfDmUIiWnr8KNg8L-y5KjYk2nmy94-8aoSJT2ZFPeYMOGni0dhBbl5eBXUv7FIywOZfUO9yG-YJZRrDbWbx4MZT2ljiQPC6W2R390_Cp2N8qdgsIYbfcDQh97_URTSa2Z5wFEsTHnzbEEt01MDwxo8Ki8pbvxFZUSPpxoOxpPvrDaEz5ZFRr3AqlvsUpKZvYKlVDtpbJ-CipYEnAME4mDU1hxAr4qfVJvH78bookgAA' }
+[2016-05-26 10:10:09.417] [INFO] console - Strategy Verification:  { iss: 'https://sts.windows.net/72f988bf-86f1-41af-91ab-2d7cd011db47/',
+  sub: 'b6t1SsDbZioFpx64NBLtyFmKy_n2-DXnSgwpGoOUXgE',
+  profile: 
+   { id: 'b6t1SsDbZioFpx64NBLtyFmKy_n2-DXnSgwpGoOUXgE',
+     displayName: 'Zhiyuan Wang',
+     name: 
+      { familyName: 'Wang',
+        givenName: 'Zhiyuan',
+        middleName: undefined },
+     email: 'zhiw@microsoft.com',
+     _raw: '{"aud":"92ca347b-afd3-490c-bace-4eec5846c732","iss":"https://sts.windows.net/72f988bf-86f1-41af-91ab-2d7cd011db47/","iat":1464228309,"nbf":1464228309,"exp":1464232209,"amr":["pwd"],"family_name":"Wang","given_name":"Zhiyuan","in_corp":"true","ipaddr":"167.220.232.250","name":"Zhiyuan Wang","nonce":"TTsE0C0jCFtd8tMq","oid":"88f1f0a8-336d-45f1-96fb-f1c62768f5e0","onprem_sid":"S-1-5-21-2146773085-903363285-719344707-1548601","sub":"b6t1SsDbZioFpx64NBLtyFmKy_n2-DXnSgwpGoOUXgE","tid":"72f988bf-86f1-41af-91ab-2d7cd011db47","unique_name":"zhiw@microsoft.com","upn":"zhiw@microsoft.com","ver":"1.0"}',
+     _json: 
+      { aud: '92ca347b-afd3-490c-bace-4eec5846c732',
+        iss: 'https://sts.windows.net/72f988bf-86f1-41af-91ab-2d7cd011db47/',
+        iat: 1464228309,
+        nbf: 1464228309,
+        exp: 1464232209,
+        amr: [Object],
+        family_name: 'Wang',
+        given_name: 'Zhiyuan',
+        in_corp: 'true',
+        ipaddr: '167.220.232.250',
+        name: 'Zhiyuan Wang',
+        nonce: 'TTsE0C0jCFtd8tMq',
+        oid: '88f1f0a8-336d-45f1-96fb-f1c62768f5e0',
+        onprem_sid: 'S-1-5-21-2146773085-903363285-719344707-1548601',
+        sub: 'b6t1SsDbZioFpx64NBLtyFmKy_n2-DXnSgwpGoOUXgE',
+        tid: '72f988bf-86f1-41af-91ab-2d7cd011db47',
+        unique_name: 'zhiw@microsoft.com',
+        upn: 'zhiw@microsoft.com',
+        ver: '1.0' } },
+  accessToken: 'AAABAAAAiL9Kn2Z27UubvWFPbm0gLTjqA00iyWpyY2SS4jGFXUZKX84g4XS2dG2uplZjgGh0EELlaFcijy31xKycZVKDcXHf2YBBVmynVSefy41mP3I_u5njCqIK4ctfvTVgHnAOEFcEgQRmd9r7rjTt4ahX5Xwj9XJGcco-DeDjJNS9B8H9DJESBOYMZB_E4p9OW1RavmBHFkp5e2uNvo6m6hN-k9IpIPKMYaU3n3Vp6Bh6x114FYl9h6LRq2QrNmitRjjlW7srtZNUUUj9PiT0I51baDx1MqeZ9WogVSmgqUern-rTQaZYmlhNUIPC2C5Y5GbNYmBePhnYf74i4_JfwTKRqzuJbsK9_YJnKOXkiJFoJ_Uj71GdksIwroiUaigBVK7VDuXLixArYA5PLHM41qzfn_WO_PiL5tBx6zcZuEUc4SUhFaD3JiSeTMlP8xv5j_TViBwdNv5BOrs9-70obADLT25fOCg8c9RDJFypJqpP5yHQUmWTZrnSPGGhfCRHsBf6FXv7helyYWYVb_jQ0p5AAYPj_aBmwX0ILaKY60Rg_hcQF6r2o1lemQesGVm9rF2T4Izh-8-97PWS1Jqc_P1RHyAA',
+  refreshToken: 'AAABAAAAiL9Kn2Z27UubvWFPbm0gLUd5eHGgCVF__4-8yFwEm_U17Lnd2M9htgcgC9QTn11UztF3XSXmy3GTmR3YX2P3fdisTjYoOJKw9idqgP-dAE7IDFcB0SVxQUVbKxLZHHs3JsSZ6MKC6nPuM54dSFfwuoYLkC6CMeiCfAPlvaDGruhb10eNFtDpv6YV7505FH_Vko6kVxcOY4wLt1GptHqnJpiBL-MN1zlxwOz2zD-9Za8zaBJ0BYUfi0suBwGTwlZmRKCnQKsO1AUHT2kOiNAntsEgeFsYSnCeED6x8vq6SyJiNsp9OlR9Cp1z8pK0DfqMoEn72HKw_FmH9SgB19L-jjGI64Tzf2OoJbYnQbsxsjLmRuoNp0fHmOjnlkbtg4AAaGuVgMgC0Ele2A-XxCr20KTVG0_3P28Mt4FIRCbmPZyYmwAZW13hg_N9rLP3z8kRMy_EXkophZaqMU2_YT6G3BRmKRXOVOmWcn9t0biA0T0SNgQrJ5I3AMOhuZT4TTZ435OUhg9hLyB9Qf91akqXkTL8EkEpAYAvf2DCXFEEOMrHGDNi4cs-XZrvmQ--7YKxx138VafM2sJZ8UBGW2wTXbCJ9QsfIyUWZjaY2cXIR3W1zdND0Ix7RzpPtrI-WQS77GtqeS8DwlFL8cxEM0IVZtvwV_N_3Paof9JISyjkQhvkpqMNCcZWiLswxyIYwGMQoAvIlBERhulDHZPVw7jVEaFTpO9A4bZah5BtM38TdxwgAA' }
+[2016-05-26 10:10:09.486] [INFO] console - serializeUser: {"id":"b6t1SsDbZioFpx64NBLtyFmKy_n2-DXnSgwpGoOUXgE","displayName":"Zhiyuan Wang","name":{"familyName":"Wang","givenName":"Zhiyuan"},"email":"zhiw@microsoft.com","_raw":"{\"aud\":\"92ca347b-afd3-490c-bace-4eec5846c732\",\"iss\":\"https://sts.windows.net/72f988bf-86f1-41af-91ab-2d7cd011db47/\",\"iat\":1464228307,\"nbf\":1464228307,\"exp\":1464232207,\"amr\":[\"pwd\"],\"family_name\":\"Wang\",\"given_name\":\"Zhiyuan\",\"in_corp\":\"true\",\"ipaddr\":\"167.220.232.250\",\"name\":\"Zhiyuan Wang\",\"nonce\":\"JwP8A4mGETwnG9VY\",\"oid\":\"88f1f0a8-336d-45f1-96fb-f1c62768f5e0\",\"onprem_sid\":\"S-1-5-21-2146773085-903363285-719344707-1548601\",\"sub\":\"b6t1SsDbZioFpx64NBLtyFmKy_n2-DXnSgwpGoOUXgE\",\"tid\":\"72f988bf-86f1-41af-91ab-2d7cd011db47\",\"unique_name\":\"zhiw@microsoft.com\",\"upn\":\"zhiw@microsoft.com\",\"ver\":\"1.0\"}","_json":{"aud":"92ca347b-afd3-490c-bace-4eec5846c732","iss":"https://sts.windows.net/72f988bf-86f1-41af-91ab-2d7cd011db47/","iat":1464228307,"nbf":1464228307,"exp":1464232207,"amr":["pwd"],"family_name":"Wang","given_name":"Zhiyuan","in_corp":"true","ipaddr":"167.220.232.250","name":"Zhiyuan Wang","nonce":"JwP8A4mGETwnG9VY","oid":"88f1f0a8-336d-45f1-96fb-f1c62768f5e0","onprem_sid":"S-1-5-21-2146773085-903363285-719344707-1548601","sub":"b6t1SsDbZioFpx64NBLtyFmKy_n2-DXnSgwpGoOUXgE","tid":"72f988bf-86f1-41af-91ab-2d7cd011db47","unique_name":"zhiw@microsoft.com","upn":"zhiw@microsoft.com","ver":"1.0"}}
+[2016-05-26 10:10:09.531] [INFO] console - We received a return from AzureAD!
+[2016-05-26 10:10:09.592] [INFO] console - deserializeUser { id: 'zhiw@microsoft.com' }
+[2016-05-26 10:15:40.084] [INFO] RunService - load app
+[2016-05-26 10:15:40.084] [INFO] RunService - load app
+[2016-05-26 10:15:40.618] [INFO] RunService - setup view engine = ejs, views = d:\temp\azure\satori\private\src\AzureSatori\SatoriPortal\views
+[2016-05-26 10:15:40.618] [INFO] RunService - setup view engine = ejs, views = d:\temp\azure\satori\private\src\AzureSatori\SatoriPortal\views
+[2016-05-26 10:15:40.639] [INFO] console - Use strategy to authenticate: azuread-openidconnect
+[2016-05-26 10:15:40.640] [INFO] RunService - process.env.PORT = undefined
+[2016-05-26 10:15:40.640] [INFO] RunService - process.env.PORT = undefined
+[2016-05-26 10:15:40.641] [INFO] RunService - set app port: 3000
+[2016-05-26 10:15:40.641] [INFO] RunService - set app port: 3000
+[2016-05-26 10:15:40.645] [INFO] RunService - Listening on port 3000
+[2016-05-26 10:15:40.645] [INFO] RunService - Listening on port 3000

@@ -4,25 +4,30 @@
  * Initialize
  */
 
-// var log = require("./common/logger");
-// log.configure();
+var log = require("./common/logger/index");
+log.configure("./log.json");
+
+var logger = log.getRunServiceLogger();
 
 var layoutRender = require("./common/layoutRender");
-layoutRender.configure("./views",false);
+layoutRender.configure("./views", false);
 
 /**
  * Module dependencies.
  */
 
+logger.info("load app");
 var app = require('./app');
-var debug = require('debug')('SatoriPortal:server');
 var http = require('http');
 
 /**
  * Get port from environment and store in Express.
  */
-
+logger.info("process.env.NODE_ENV = " + process.env.NODE_ENV);
+logger.info("process.env.PORT = " + process.env.PORT);
 var port = normalizePort(process.env.PORT || '3000');
+
+logger.info("set app port: " + port);
 app.set('port', port);
 
 /**
@@ -64,6 +69,8 @@ function normalizePort(val) {
  */
 
 function onError(error) {
+  logger.error("Server emit error: ", error);
+  
   if (error.syscall !== 'listen') {
     throw error;
   }
@@ -96,5 +103,5 @@ function onListening() {
   var bind = typeof addr === 'string'
     ? 'pipe ' + addr
     : 'port ' + addr.port;
-  debug('Listening on ' + bind);
+  logger.info('Listening on ' + bind);
 }

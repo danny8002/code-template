@@ -49,3 +49,17 @@ export function merge(dest: { [key: string]: any }, src: { [key: string]: any })
     }
     return d;
 }
+
+export function newGuid(): string {
+    function gen(count: number): string {
+        var out = "";
+        for (var i = 0; i < count; i++) {
+            out += (((1 + Math.random()) * 0x10000) | 0).toString(16).substring(1);
+        }
+        return out;
+    }
+
+    var id= [gen(2), gen(1), gen(1), gen(1), gen(3)].join("-");
+    console.log(id);
+    return id;
+}
