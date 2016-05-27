@@ -140,7 +140,7 @@ function renderEJSInternal(
         var e: Error = null;
         var d: string = null;
         try {
-            d = ejs_.render(data || {}, { cache: true, filename: path });
+            d = ejs_.render(null, data || {}, { cache: true, filename: path });
         } catch (_) {
             e = <Error>_;
         }

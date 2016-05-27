@@ -19,7 +19,8 @@ export function sysinfo(fn: SysInfoCallBack): void {
     dict["process.argv"] = process.argv;
     dict["process.env"] = process.env;
     dict["process.versions"] = process.versions;
-
+    dict["process.cwd()"] = process.cwd();
+    
     dict["os.type()"] = OS.type();
     dict["os.platform()"] = OS.platform();
 

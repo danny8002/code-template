@@ -10,6 +10,7 @@ import Path = require('path');
 import Common = require("../common/sysinfo");
 import SatoriRestClient = require("../common/backendservice");
 import layoutRender_ = require("../common/layoutRender");
+import layoutUtil_ = require("../common/layoutUtil");
 
 var router_ = Express.Router();
 
@@ -38,7 +39,20 @@ router_.get("/groups", function (req, res, next) {
                 res.statusMessage = "Cannot get system info: " + JSON.stringify(e);
                 res.send(500);
             } else {
-                res.send(d.join("\r"));
+                // res.render("", { groups: d || [], filename: "admin/group.ejs" });
+                layoutRender_.renderEJS(
+                    "admin/groups",
+                    layoutUtil_.extractLayoutData(req, res)({
+                        title: "Satori Portal Home",
+                        headerScripts: [],
+                        footerScripts: ["/javascripts/homepage/sp.js", "/javascripts/homepage/spfx.js"],
+                        otherCss: [],
+                        groups: d || []
+                    }),
+                    function (e, h) {
+                        if (e != null) return next(e);
+                        res.send(h);
+                    });
             }
         }
     );

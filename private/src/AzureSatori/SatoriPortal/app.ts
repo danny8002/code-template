@@ -64,9 +64,13 @@ app.use(<Express.RequestHandler>function (req, res, next) {
 // will print stacktrace
 app.use(<Express.ErrorRequestHandler>function (err, req, res, next) {
     res.status(err.status || 500);
+    // res.render('error', {
+    //     message: err.message,
+    //     error: util_.isProduction() ? {} : err
+    // });
     res.render('error', {
         message: err.message,
-        error: util_.isProduction() ? {} : err
+        error: err
     });
 });
 

@@ -1,6 +1,4 @@
-/// <reference path="../../typings/main.d.ts" />
-/// <reference path="./requestutil.ts" />
-/// <reference path="./configuration.ts" />
+/// <reference path="../../../typings/main.d.ts" />
 
 import Http_ = require("http");
 import Util_ = require("util");
@@ -10,8 +8,8 @@ import Zlib_ = require("zlib");
 import Events_ = require("events");
 import Path_ = require('path');
 
-import ReqUtil = require("./requestutil");
-import Config = require("./configuration");
+import ReqUtil = require("../requestutil");
+import cfg_ = require("../configuration");
 
 export class JobServiceClient {
     private url: string;
@@ -68,7 +66,7 @@ export class JobServiceClient {
         var options = ReqUtil.buildRequestOptions(
             Util_.format("%s/SecurityService/Users", this.url),
             { "appid": this.appId },
-            Config.additionalHeaders);
+            cfg_.buildClientHeader());
 
         return ReqUtil.sendRequestWithResponseModel<string[]>(options, null, callback);
     }

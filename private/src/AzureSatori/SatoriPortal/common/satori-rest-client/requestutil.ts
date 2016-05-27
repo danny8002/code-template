@@ -12,7 +12,13 @@ var ContentType_ = require("content-type");
 
 import ClientUtil = require("./utils");
 
-export function buildRequestOptions(urlStr: string, addQueries?: { [key: string]: string | number }, addHeaders?: { [key: string]: string | number }): Http_.RequestOptions {
+export interface ExtHeaders {
+    userPrincipalName?: string;
+    userGroups?: string[];
+    [key: string]: string | string[] | number;
+}
+
+export function buildRequestOptions(urlStr: string, addQueries?: { [key: string]: string | number }, addHeaders?: ExtHeaders): Http_.RequestOptions {
     if (urlStr == null) {
         throw new Error("argument [urlStr] is required!");
     }
@@ -52,7 +58,13 @@ export function buildRequestOptions(urlStr: string, addQueries?: { [key: string]
 
     addHeaders = addHeaders || {};
     for (var k in addHeaders) {
-        options.headers[k] = addHeaders[k];
+        var v = addHeaders[k];
+        if (Array.isArray(v)) {
+            options.headers[k] = v.join(",");
+        }
+        else {
+            options.headers[k] = addHeaders[k];
+        }
     }
 
     return options;
@@ -161,8 +173,8 @@ namespace MiddleWare {
     }
 
     export function readAsString(
-        res: NodeJS.ReadableStream, 
-        encoding: string, 
+        res: NodeJS.ReadableStream,
+        encoding: string,
         callback: ClientUtil.NodeStyleCallBack<string>) {
 
         res.setEncoding(encoding);
@@ -212,6 +224,7 @@ namespace ParseModel {
 
         return value;
     }
+
 
     export function parseDataModel<T>(data: string, cb: (err: Error, data: T) => void): void {
 

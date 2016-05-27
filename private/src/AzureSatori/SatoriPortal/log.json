@@ -13,7 +13,7 @@
         {
             "type": "file",
             "absolute": true,
-            "filename": "logs/log_file.log",
+            "filename": "logs/log_runservice.log",
             "maxLogSize": 20480,
             "backups": 10,
             "category":"RunService"

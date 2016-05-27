@@ -1,6 +1,4 @@
-
-/// <reference path="./jobservice.ts" />
-import JBC = require("./jobservice");
+import JBC = require("./clients/jobservice");
 
 export interface AutoUpdateSecurityGroupOptions {
     updateSecurityUserIntervalSeconds: number,

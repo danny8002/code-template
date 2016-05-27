@@ -33,3 +33,12 @@ export function toError(e: any): Error {
 
     return new Error(String(e));
 }
+
+export function merge(dest: { [key: string]: any }, src: { [key: string]: any }): { [key: string]: any } {
+    var d = dest || {};
+    var s = src || {};
+    for (var k in s) {
+        d[k] = s[k];
+    }
+    return d;
+}
