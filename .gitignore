@@ -7,7 +7,6 @@ dist
 .vs
 .tscache
 .ntvs_analysis.dat
-.vscode/
 *.js.map
 *.js
 
