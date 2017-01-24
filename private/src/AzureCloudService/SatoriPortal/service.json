@@ -1,0 +1,6 @@
+{
+    "appId": "86D9309658E1B387273B7A89E7BFF135761DAE2E",
+    "jobServiceUrl": "http://65.55.250.145/",
+    "dataServiceUrl": "http://65.55.250.145:89/",
+    "pushServiceUrl": "http://65.55.250.145:84/"
+}

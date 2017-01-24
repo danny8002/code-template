@@ -1,0 +1,2 @@
+%windir%\system32\inetsrv\AppCmd.exe set config -section:applicationPools -applicationPoolDefaults.processModel.idleTimeout:00:00:00
+%windir%\system32\inetsrv\AppCmd.exe set config -section:applicationPools -applicationPoolDefaults.startMode:AlwaysRunning
