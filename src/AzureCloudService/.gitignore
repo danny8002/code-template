@@ -1,5 +1,10 @@
 obj
+objd
 logs
+csx
+ecf
+rcf
+*.user
 
 node_modules
 dist
