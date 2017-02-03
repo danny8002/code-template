@@ -14,7 +14,8 @@ function _key(profile: AzureAD_.OIDCProfile): string {
 
 class UserAuthCache {
 
-    private userCacheStore: <{[key: string]: AzureAD_.OIDCProfile }>;
+
+    private userCacheStore: { [key: string]: AzureAD_.OIDCProfile };
 
     constructor() {
         this.userCacheStore = <{ [key: string]: AzureAD_.OIDCProfile }>{};
