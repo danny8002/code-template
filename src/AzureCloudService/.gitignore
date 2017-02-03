@@ -20,3 +20,4 @@ dist
 !*.min.js
 !gruntfile.js
 !server.js
+!webpack.config.js
