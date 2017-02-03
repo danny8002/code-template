@@ -5,7 +5,7 @@
  */
 
 var log = require("./common/logger/index");
-log.configure("./log.json");
+log.configure("./settings/log.json");
 
 var logger = log.getRunServiceLogger();
 

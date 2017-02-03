@@ -10,7 +10,8 @@
         "**/node_modules":true,
         "**/.git": true,
         "**/.svn": true,
-        "**/.DS_Store": true
+        "**/.DS_Store": true,
+        "obj": true
     }
 ,
 "typescript.check.workspaceVersion": false

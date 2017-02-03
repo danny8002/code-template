@@ -18,7 +18,7 @@
     "log4js": "~0.6.36",
     "morgan": "~1.6.1",
     "passport": "^0.3.2",
-    "passport-azure-ad": "~1.4.5",
+    "passport-azure-ad": "^3.0.4",
     "serve-favicon": "~2.3.0"
   },
   "engines": {
