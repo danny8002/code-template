@@ -1,4 +1,5 @@
 /// <reference path="../typings/main.d.ts" />
+/// <reference path="../typings/index.d.ts" />
 /// <reference path="./util.ts" />
 import fs_ = require("fs");
 import path_ = require("path");
