@@ -25,7 +25,7 @@ export function extractLayoutData(
     // data used by layout.ejs extracted from request
     var data: { [key: string]: any } = {
         displayName: user.displayName,
-        email: user.email
+        email: user.upn
     };
 
     return function (src: PageData): { [key: string]: any } {

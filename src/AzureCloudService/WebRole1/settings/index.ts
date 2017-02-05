@@ -16,7 +16,8 @@ export var AuthConfig: OIDCStrategyOptions = {
     responseMode: "query",
     redirectUrl: protocol + hostPlaceHolder + "/auth/openid/return",
     allowHttpForRedirectUrl: isHttpForUrl,
-    passReqToCallback: true
+    passReqToCallback: true,
+    scope:['email', 'profile']
 }
 
 export function AdjustHostOnce(host: string) {

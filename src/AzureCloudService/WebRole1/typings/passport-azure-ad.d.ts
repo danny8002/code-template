@@ -386,7 +386,7 @@ declare module 'passport-azure-ad' {
     }
 
     export interface OIDCProfile extends passport.Profile {
-        email: string,
+        upn: string;
         name: { familyName: string, givenName: string, middleName: string }
     }
 

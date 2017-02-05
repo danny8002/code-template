@@ -9,11 +9,11 @@ import settings_ = require('../settings');
 
 
 function _key(profile: AzureAD_.OIDCProfile): string {
-    return profile.email;
+    return profile.upn;
 }
 
 class UserAuthCache {
-
+    
 
     private userCacheStore: { [key: string]: AzureAD_.OIDCProfile };
 
@@ -42,7 +42,7 @@ function buildOIDCStrategy(cache: UserAuthCache, config: PassportAzureAD.OIDCStr
 
     return new AzureAD_.OIDCStrategy(cfg, function verifyWithRequest(req, iss, sub, profile, jwtClaims, accessToken, refreshToken, param, verified) {
 
-        if (!profile.email) {
+        if (!profile.upn) {
             return verified(new Error("No email found"), null);
         }
 
