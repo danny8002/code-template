@@ -19,66 +19,169 @@ declare namespace PassportAzureAD {
         responseMode?: string
     }
 
-
-    export interface OIDCStrategyOptions extends OIDCStrategyPartialOptions {
+    export interface OIDCStrategyOptions {
         /**
-         * For using Microsoft you should never need to change this.
-         * https://login.microsoftonline.com/common/.well-known/openid-configuration
-         * if B2C, use this
-         * https://login.microsoftonline.com/common/v2.0/.well-known/openid-configuration
+         *    - `identityMetadata`   (1) Required
+         *                          (2) must be a https url string
+         *                          (3) Description:
+         *                          the metadata endpoint provided by the Microsoft Identity Portal that provides 
+         *                          the keys and other important info at runtime. Examples:
+         *                          <1> v1 tenant-specific endpoint
+         *                          - https://login.microsoftonline.com/your_tenant_name.onmicrosoft.com/.well-known/openid-configuration
+         *                          - https://login.microsoftonline.com/your_tenant_guid/.well-known/openid-configuration
+         *                          <2> v1 common endpoint
+         *                          - https://login.microsoftonline.com/common/.well-known/openid-configuration
+         *                          <3> v2 tenant-specific endpoint
+         *                          - https://login.microsoftonline.com/your_tenant_name.onmicrosoft.com/v2.0/.well-known/openid-configuration
+         *                          - https://login.microsoftonline.com/your_tenant_guid/v2.0/.well-known/openid-configuration
+         *                          <4> v2 common endpoint
+         *                          - https://login.microsoftonline.com/common/v2.0/.well-known/openid-configuration
+         *
          */
-        identityMetadata: string,
-
-        /**
-         * It is required if forceB2C==true or found a policy inside of the login request.
-         * for safety, you should always specify this (so mark this field required).
-         * for example: contoso.onmicrosoft.com
-         */
-        tenantName: string,
-
-        /**
-         * when Azure AD authenticate successfully, it redirect to this, eg:
-         * http://localhost:3000/auth/openid/return
-         * or relative path: /auth/openid/return
-         */
-        callbackURL: string,
-
-
-        clientID: string,
+        identityMetadata: string;
 
         /**
-         * (for safety, mark this required) only required if you are doing code or id_token code"
+         *   - `clientID`           (1) Required
+         *                          (2) must be a string
+         *                          (3) Description:
+         *                          The Client ID of your app in AAD
+         *
          */
-        clientSecret: string,
+        clientID: string;
 
         /**
-         * for AzureAD should be set to true
+         *   - `responseType`       (1) Required
+         *                          (2) must be 'code', 'code id_token', 'id_token code' or 'id_token'
+         *                          (3) Description:
+         *                          For login only flows use 'id_token'. For accessing resources use `code id_token`, 'id_token code' or `code`
          */
-        skipUserProfile: boolean,
+        responseType: string;
+        /**
+         *   - `responseMode`       (1) Required
+         *                          (2) must be 'query' or 'form_post'
+         *                          (3) Description:
+         *                          How you get the authorization code and tokens back
+         */
+        responseMode: string;
 
         /**
-         * passport-azure-ad use 'https://www.npmjs.com/package/bunyan' as logger and output log in console
-         * Bunyan's log levels: trace, debug, info, warn, error, and fatal.
+         *   - `redirectUrl`        (1) Required
+         *                          (2) must be a https url string, unless you set `allowHttpForRedirectUrl` to true
+         *                          (3) Description:
+         *                          The reply URL registered in AAD for your app
          */
-        loggingLevel?: string,
-
-        validateIssuer?: boolean,
-
-        /**
-         * if true, the first parameter of verified function is http request
-         */
-        passReqToCallback?: boolean,
+        redirectUrl: string;
 
         /**
-         * force to use Azure AD B2C
+         *   - `allowHttpForRedirectUrl`
+         *                          (1) Required to set to true if you want to use http url for redirectUrl
+         *                          (2) Description:
+         *                          The default value is false. It's OK to use http like 'http://localhost:3000' in the
+         *                          dev environment, but in production environment https should always be used. 
          */
-        forceB2C?: boolean,
+        allowHttpForRedirectUrl?: boolean;
 
         /**
-         * list of scope values indicating the required scope of the access token for accessing the requested resource
-         * scope: ['email', 'profile'] // additional scopes you may wish to pass
+         *
+         *
+         *   - `clientSecret`       (1) This option only applies when `responseType` is 'code', 'id_token code' or 'code id_token'.
+         *                              To redeem an authorization code, we can use either client secret flow or client assertion flow.
+         *                              (1.1) For B2C, clientSecret is required since client assertion is not supported
+         *                              (1.2) For non-B2C, both flows are supported. Developer must provide either clientSecret, or 
+         *                                    thumbprint and privatePEMKey. We use clientSecret if it is provided, otherwise we use 
+         *                                    thumbprint and privatePEMKey for the client assertion flow.
+         *                          (2) must be a string
+         *                          (3) Description:
+         *                          The app key of your app from AAD. 
+         *                          NOTE: For B2C, the app key sometimes contains '\', please replace '\' with '\\' in the app key, otherwise
+         *                          '\' will be treated as the beginning of a escaping character
          */
-        scope?: string[] | string
+        clientSecret?: string;
+
+        /**
+         *   - `thumbprint`         (1) Required if you want to use client assertion to redeem an authorization code (non-B2C only)
+         *                          (2) must be a base64url encoded string
+         *                          (3) Description:
+         *                          The thumbprint (hash value) of the public key
+         */
+        thumbprint?: string;
+
+        /**
+         *   - `privatePEMKey`      (1) Required if you want to use client assertion to redeem an authorization code (non-B2C only)
+         *                          (2) must be a pem key
+         *                          (3) Description:
+         *                          The private key used to sign the client assertion JWT
+         */
+        privatePEMKey?: string;
+
+        /**
+         *   - `isB2C`              (1) Required for B2C
+         *                          (2) must be true for B2C, default is false
+         *                          (3) Description:
+         *                          set to true if you are using B2C, default is false   
+         */
+        isB2C?: boolean;
+
+        /**
+         *   - `validateIssuer`     (1) Required to set to false if you don't want to validate issuer, default is true
+         *                          (2) Description:
+         *                          For common endpoint, you should either set `validateIssuer` to false, or provide the `issuer`, since
+         *                          we cannot grab the `issuer` value from metadata.
+         *                          For non-common endpoint, we use the `issuer` from metadata, and `validateIssuer` should be always true
+         */
+        validateIssuer?: boolean;
+
+        /**
+         *   - `issuer`             (1) Required if you are using common endpoint and set `validateIssuer` to true, or if you want to specify the allowed issuers
+         *                          (2) must be a string or an array of strings
+         *                          (3) Description:
+         *                          For common endpoint, we use the `issuer` provided.
+         *                          For non-common endpoint, if the `issuer` is not provided, we use the issuer provided by metadata
+         */
+        issuer?: string | string[];
+
+        /**
+         *   - `passReqToCallback`  (1) Required to set true if you want to use the `function(req, token, done)` signature for the verify function, default is false
+         *                          (2) Description:
+         *                          Set `passReqToCallback` to true use the `function(req, token, done)` signature for the verify function
+         *                          Set `passReqToCallback` to false use the `function(token, done)` signature for the verify function 
+         */
+        passReqToCallback: boolean;
+
+        /**
+         *   - `scope`              (1) Optional
+         *                          (2) must be a string or an array of strings
+         *                          (3) Description:
+         *                          list of scope values indicating the required scope of the access token for accessing the requested
+         *                          resource. Ex: ['email', 'profile']. 
+         *                          We send 'openid' by default. For B2C, we also send 'offline_access' (to get refresh_token) and
+         *                          clientID (to get access_token) by default.
+         */
+        scope?: string | string[];
+
+        /**
+         *   - `loggingLevel`       (1) Optional
+         *                          (2) must be 'info', 'warn', 'error'
+         *                          (3) Description:  
+         *                          logging level  
+         */
+        loggingLevel?: string;
+
+        /**
+         *   - `nonceLifetime`      (1) Optional
+         *                          (2) must be a positive integer
+         *                          (3) Description:
+         *                          the lifetime of nonce in session, default value is NONCE_LIFE_TIME
+         */
+        nonceLifetime?: number;
+
+        /**
+         *   - `clockSkew`          (1) Optional
+         *                          (2) must be a positive integer
+         *                          (3) Description:
+         *                          the clock skew (in seconds) allowed in token validation, default value is CLOCK_SKEW
+         */
+        clockSkew?: number;
     }
 
     /**

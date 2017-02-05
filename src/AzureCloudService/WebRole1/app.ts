@@ -6,6 +6,8 @@
 import log_ = require("./common/logger/index");
 var logger = log_.getRunServiceLogger();
 
+import settings_ = require("./settings");
+
 import Express = require('express');
 import Path = require('path');
 import ExpressSession = require("express-session");
@@ -31,6 +33,11 @@ logger.info("setup view engine [%s], views [%s]", app.get("view engine"), app.ge
 //app.use(logger('dev'));
 logger.info("use body parser json()");
 app.use(bodyParser_.json());
+
+app.use(function AdjustHostOnceHandler(req, res, next) {
+    settings_.AdjustHostOnce(req.header('host'));
+    next();
+});
 
 logger.info("use body parser urlencoded()");
 app.use(bodyParser_.urlencoded({ extended: false }));
