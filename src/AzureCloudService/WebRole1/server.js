@@ -25,7 +25,7 @@ var http = require('http');
  */
 logger.info("process.env.NODE_ENV = " + process.env.NODE_ENV);
 logger.info("process.env.PORT = " + process.env.PORT);
-var port = normalizePort(process.env.PORT || '3000');
+var port = normalizePort(process.env.PORT || '44300');
 
 logger.info("set app port: " + port);
 app.set('port', port);
