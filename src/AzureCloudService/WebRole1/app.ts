@@ -21,6 +21,8 @@ import bodyParser_ = require('body-parser');
 import RouteCollection = require('./routes/main');
 
 import util_ = require("./common/util");
+import layoutRender_ = require("./common/layoutRender");
+layoutRender_.configure("./views");
 
 var app = Express();
 

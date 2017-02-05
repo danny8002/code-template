@@ -9,9 +9,6 @@ log.configure("./settings/log.json");
 
 var logger = log.getRunServiceLogger();
 
-var layoutRender = require("./common/layoutRender");
-layoutRender.configure("./views", false);
-
 /**
  * Module dependencies.
  */

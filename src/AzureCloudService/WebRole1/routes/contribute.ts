@@ -9,7 +9,7 @@ import Path = require('path');
 
 import Common = require("../common/sysinfo");
 import SatoriRestClient = require("../common/backendservice");
-import layoutRender_ = require("../common/layoutRender");
+import { Render as render_ } from "../common/layoutRender";
 import layoutUtil_ = require("../common/layoutUtil");
 
 var router = Express.Router();
@@ -29,8 +29,9 @@ var root = Path.resolve(__dirname, '..');
 
 router.get('/', function (req, res, next) {
 
-    layoutRender_.renderHtml(
-        "index2",
+    render_.render(
+        "index2.html",
+        null,
         layoutUtil_.extractLayoutData(req, res)({
             title: "Satori Portal Home",
             headerScripts: [],
