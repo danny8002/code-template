@@ -10,7 +10,6 @@ import authentication_ = require("../common/authentication");
 import indexRouter_ = require('./index');
 import usersRouter_ = require('./users');
 import adminRouter_ = require('./admin');
-import tracing_ = require('./tracing');
 
 export function registerAll(app: Express.Express): void {
 
@@ -20,7 +19,6 @@ export function registerAll(app: Express.Express): void {
     app.use('/', ensureAuthenticated, <Express.Router>indexRouter_);
     app.use('/users', ensureAuthenticated, <Express.Router>usersRouter_);
     app.use('/admin', ensureAuthenticated, <Express.Router>adminRouter_);
-    app.use('/tracing', ensureAuthenticated, <Express.Router>tracing_);
 }
 
 function ensureAuthenticated(req: Express.Request, res: Express.Response, next: Express.NextFunction): any {
