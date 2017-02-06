@@ -17,7 +17,7 @@ export var AuthConfig: OIDCStrategyOptions = {
     redirectUrl: protocol + hostPlaceHolder + "/auth/openid/return",
     allowHttpForRedirectUrl: isHttpForUrl,
     passReqToCallback: true,
-    scope:['email', 'profile']
+    scope: ['email', 'profile']
 }
 
 export function AdjustHostOnce(host: string) {
@@ -27,5 +27,22 @@ export function AdjustHostOnce(host: string) {
 
         AuthConfig.redirectUrl = url;
         AuthConfig._processedRedirectUrl = true;
+    }
+}
+
+export class RequestQueue {
+    private _cur: number = 0;
+    private _buffer: any[] = [];
+    constructor(private _count: number) {
+        this._buffer = []
+    }
+
+    public enter(data: any): void {
+        this._buffer[this._cur] = data;
+        this._cur = this._cur + 1;
+    }
+
+    public current():any{
+        return this._buffer[this._cur-1];
     }
 }

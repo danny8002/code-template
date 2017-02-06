@@ -1,16 +1,7 @@
-﻿
-<div class="container body-container"
+﻿<div class="container body-container"
      style="margin-left: 0; margin-right: 0; height: auto"
      ng-controller="dataTracingIndexCtrl"
      ng-init="init('sp-hidden-data-id')">
-    <div style="background-color: rgb(1, 150, 136);" class="row">
-        <div class="col-md-offset-2">
-            <div style="font-size: 36px; margin-top: 26px;">
-                <span>Streaming Pipeline Data Tracing</span>
-            </div>
-            <div style="font-size: 18px; margin-bottom: 30px;">Clear View of Data Status in Every Stage of the Pipeline</div>
-        </div>
-    </div>
     <div class="row" style="margin-top: 36px;">
         <div class="col-md-offset-1">
             <div style="font-size: 24px;">Please Input ExternalId/TraceId/SatoriId</div>
@@ -647,22 +638,3 @@
         <button class="btn btn-primary" type="button" ng-click="ok()">OK</button>
     </div>
 </script>
-
-@section PageScriptBundle {
-    <script src="~/Scripts/angular-1.5.8/angular.js"></script>
-    <script src="~/Scripts/angular-1.5.8/angular-cookies.min.js"></script>
-    <script src="~/Scripts/ui-bootstrap-tpls-2.0.0.min.js"></script>
-    <script src="~/Scripts/vis/vis.min.js"></script>
-    <script src="~/Scripts/Page/HeaderCtrl.js"></script>
-    <script src="~/Scripts/Page/DataTracingCtrl.js"></script>
-    <script src="~/Scripts/Page/app.js"></script>
-}
-@section PageScriptSnippet {
-    <script>
-        SP.App.getSharedApp()
-            .controller('dataTracingIndexCtrl', SP.DataTracing.IndexCtrl)
-            .controller('dataTracingViewCtrl', SP.DataTracing.ViewCtrl)
-            .controller('dataTracingViewDynamicCtrl', SP.DataTracing.ViewDynamicCtrl);
-
-    </script> 
-}

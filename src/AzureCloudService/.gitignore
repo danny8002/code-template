@@ -21,3 +21,5 @@ dist
 !gruntfile.js
 !server.js
 !webpack.config.js
+
+!/WebRole1/public/javascripts/page/*.js

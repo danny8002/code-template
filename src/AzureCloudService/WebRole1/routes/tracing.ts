@@ -22,14 +22,20 @@ router.get('/', function (req, res, next) {
             title: "Streaming Pipeline Data Tracing",
             headerScripts: [],
             footerScripts: [
-                "/javascripts/angular-1.5.8/angular.js",
+                "/javascripts/homepage/sp.js",
+                "/javascripts/homepage/spfx.js",
+                "/javascripts/angular-1.5.8/angular.min.js",
                 "/javascripts/angular-1.5.8/angular-cookies.min.js",
                 "/javascripts/ui-bootstrap-tpls-2.0.0.min.js",
-                "/javascripts/vis/vis.min.js"
+                "/javascripts/vis/vis.min.js",
+                "/javascripts/page/shared.js",
+                "/javascripts/page/app.js",
+                "/javascripts/page/DataTracingCtrl.js"
             ],
             otherCss: [
                 "/stylesheets/tracing.css"
-            ]
+            ],
+            onloadScript: "SP.DataTracing.main()"
         },
         null);
 });
