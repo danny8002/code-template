@@ -120,6 +120,7 @@
     <div class="sp-content">
         <%- block_content %>
     </div>
+    <span id="sp-hidden-data-id" style="display: none"><%- model %></span>
     <% footerScripts.forEach(function(s){ %>
     <script src="<%= s %>"></script>
     <% }); %>

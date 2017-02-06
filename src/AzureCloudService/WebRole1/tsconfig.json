@@ -16,7 +16,6 @@
         "common/authentication.ts",
         "common/backendservice.ts",
         "common/layoutRender.ts",
-        "common/layoutUtil.ts",
         "common/logger/index.ts",
         "common/logger/logger.ts",
         "common/routerUtil.ts",

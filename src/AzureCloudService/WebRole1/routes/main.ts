@@ -1,5 +1,4 @@
 ﻿/// <reference path="../typings/main.d.ts" />
-/// <reference path="../common/authentication.ts" />
 
 /// <reference path="./index.ts" />
 /// <reference path="./admin.ts" />
@@ -7,19 +6,21 @@
 
 import Express = require('express');
 
-import Authentication = require("../common/authentication");
-import IndexRoute = require('./index');
-import UsersRoute = require('./users');
-import adminRoute_ = require('./admin');
+import authentication_ = require("../common/authentication");
+import indexRouter_ = require('./index');
+import usersRouter_ = require('./users');
+import adminRouter_ = require('./admin');
+import tracing_ = require('./tracing');
 
 export function registerAll(app: Express.Express): void {
 
     // TODO: here find the reason why should put /login before /
     app.use('/', registerAuthRoute(null));
 
-    app.use('/', ensureAuthenticated, <Express.Router>IndexRoute);
-    app.use('/users', ensureAuthenticated, <Express.Router>UsersRoute);
-    app.use('/admin', ensureAuthenticated, <Express.Router>adminRoute_);
+    app.use('/', ensureAuthenticated, <Express.Router>indexRouter_);
+    app.use('/users', ensureAuthenticated, <Express.Router>usersRouter_);
+    app.use('/admin', ensureAuthenticated, <Express.Router>adminRouter_);
+    app.use('/tracing', ensureAuthenticated, <Express.Router>tracing_);
 }
 
 function ensureAuthenticated(req: Express.Request, res: Express.Response, next: Express.NextFunction): any {
@@ -34,8 +35,8 @@ function ensureAuthenticated(req: Express.Request, res: Express.Response, next: 
 
 function registerAuthRoute(app2: Express.Express): Express.Router {
 
-    var strategyName = Authentication.UsedStrategy.name;
-    var usedPassport = Authentication.UsedPassport;
+    var strategyName = authentication_.UsedStrategy.name;
+    var usedPassport = authentication_.UsedPassport;
     console.log('Use strategy to authenticate: ' + strategyName);
 
     var authFn: Express.RequestHandler = usedPassport.authenticate(strategyName, { failureRedirect: '/login' });
