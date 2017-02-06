@@ -1,0 +1,668 @@
+﻿
+<div class="container body-container"
+     style="margin-left: 0; margin-right: 0; height: auto"
+     ng-controller="dataTracingIndexCtrl"
+     ng-init="init('sp-hidden-data-id')">
+    <div style="background-color: rgb(1, 150, 136);" class="row">
+        <div class="col-md-offset-2">
+            <div style="font-size: 36px; margin-top: 26px;">
+                <span>Streaming Pipeline Data Tracing</span>
+            </div>
+            <div style="font-size: 18px; margin-bottom: 30px;">Clear View of Data Status in Every Stage of the Pipeline</div>
+        </div>
+    </div>
+    <div class="row" style="margin-top: 36px;">
+        <div class="col-md-offset-1">
+            <div style="font-size: 24px;">Please Input ExternalId/TraceId/SatoriId</div>
+        </div>
+    </div>
+    <div class="row" style="margin-top: 28px;">
+        <div class="col-md-offset-2 col-md-6" style="padding-left: 0;">
+            <div class="col-md-1" style="padding-right: 0px">
+                <div style="float: right" class="btn-group" uib-dropdown>
+                    <button id="count-button" type="button" style="min-width: 100px" class="btn" uib-dropdown-toggle ng-disabled="disabled">
+                        {{usedKind}} <span class="caret"></span>
+                    </button>
+                    <ul class="dropdown-menu" style="min-width: 100px" uib-dropdown-menu role="menu" aria-labelledby="count-button">
+                        <li role="menuitem" ng-repeat="v in kinds" ng-click="chooseKind(v)">
+                            <a href="javascript:void(0)">{{v}}</a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+            <div class="col-md-11">
+                <input class="form-control" ng-model="query" type="text" sp-enter="click()" placeholder="Input your ExternalId/TraceId/SatoriId id in here">
+            </div>
+        </div>
+        <div class="col-md-1">
+            <button ng-click="click()" type="button" class="btn btn-success">Query<i ng-if="isLoading" class="fa fa-spinner fa-spin" style="margin-left: 5px"></i></button>
+        </div>
+    </div>
+    <div class="row hidden-item-when-load" style="margin-top: 10px;">
+        <div class="col-md-offset-1 col-md-7" style="padding-left: 0;" ng-class="{'alert alert-danger': error!=null}">
+            <span ng-bind="error"></span>
+        </div>
+    </div>
+    <div ng-if="dataKey2TraceIds != null" class="row hidden-item-when-load" style="margin-top: 10px;">
+        <div class="col-md-offset-2 col-md-6" style="padding-left: 0;">
+            <span ng-if="dataKey2TraceIds.dataKey != null" ng-bind-template="Find {{dataKey2TraceIds.traceIds.length}} TraceId(s) for [{{dataKey2TraceIds.dataKey}}]"></span>
+            <span ng-if="dataKey2TraceIds.dataKey == null">
+                No TraceId(s) Found
+                <i style="margin-left: 5px" class="fa fa-question-circle-o" aria-hidden="true"></i>
+            </span>
+            <table class="table table-bordered">
+                <tbody>
+                    <tr ng-repeat="s in dataKey2TraceIds.traceIds" ng-class="{'selected-traceid-row': s._selected}">
+                        <td ng-bind="s._local" title="UTC = {{s.timestamp}}"></td>
+                        <td ng-bind="s.traceId"></td>
+                        <td>
+                            <a href="javascript:void(0)" ng-click="chooseTraceId(s.traceId, $index)" ng-bind-template="Trace This" style="text-decoration: underline; cursor: pointer; color: blue"></a>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+    <div style="margin-top: 18px;" class="row hidden">
+        <div class="col-md-offset-1 col-md-10" style="padding-left: 0;">
+            <div style="font-size: 24px; color: rgb(45, 45, 45);">
+                Data Tracing Info
+            </div>
+        </div>
+    </div>
+    <div style="margin-top: 15px; font-weight: bold" class="row">
+        <div class="col-md-offset-1 col-md-10" style="padding-left: 0;">
+            <div>
+                <span>E2E Latency: </span>
+                <span ng-if="e2eLatency!=null" ng-bind-template="{{e2eLatency}}"></span>
+            </div>
+        </div>
+        <div class="col-md-offset-1 col-md-10" style="padding-left: 0;">
+            <div>
+                <span>Process Latency: </span>
+                <span ng-if="processLatency!=null" ng-bind-template="{{processLatency}}"></span>
+            </div>
+        </div>
+        <div class="col-md-offset-1 col-md-10 hidden" style="padding-left: 0;">
+            <div>
+                <span>Seed: </span>
+                <span id="seed"></span>
+            </div>
+        </div>
+    </div>
+    <div class="row" style="margin-top: 5px">
+        <div class="col-md-offset-1 col-md-10">
+            <div style="display: block; position: relative">
+                <span class="btn btn-back" ng-click="goBackViewPort()">Go Back</span>
+                <span class="btn btn-back hidden" style="right: 70px" ng-click="goFullView()">View Full</span>
+            </div>
+            <div id="streaming-network" style="height: 200px; border: 1px solid lightgray; background-color: white">
+            </div>
+        </div>
+    </div>
+    <div class="row" style="margin-top: 5px">
+        <div class="col-md-offset-1 col-md-10">
+            <div id="streaming-network2" class="col-md-4 hidden" style="height: 500px; border: 1px solid lightgray; background-color: white">
+            </div>
+            <div class="col-md-12" style="border: 1px solid lightgray; background-color: white; min-height: 500px">
+                <div ng-if="displayNode.kind=='edge_input'">
+                    <div ng-if="displayNode.batchInfo != null" class="row">
+                        <div class="col-md-2 control-label" style="padding-top: 7px">
+                            <label>Batch Count</label>
+                        </div>
+                        <div class="col-md-10">
+                            <span ng-bind="displayNode.batchInfo.count"></span>
+                            <span>(In Batch),</span>
+                            <span style="margin-left: 10px" ng-bind="displayNode.batchInfo.countPerId"></span>
+                            <span>(From This Data)</span>
+                        </div>
+                    </div>
+                    <div ng-if="displayNode.batchInfo.otherTraceIds.length > 0" class="row">
+                        <div class="col-md-2 control-label" style="padding-top: 7px">
+                            <label>Other TraceId(s)</label>
+                        </div>
+                        <div class="col-md-10 form-control-static long-text">
+                            <div ng-repeat="tid in displayNode.batchInfo.otherTraceIds">
+                                {{tid}}
+                            </div>
+                        </div>
+                    </div>
+                    <hr />
+                </div>
+                <div ng-if="displayNode.kind=='edge_output'" ng-init="evt=displayNode.outputEvent">
+                    <div ng-if="evt != null" class="row">
+                        <div class="col-md-2 control-label" style="padding-top: 7px">
+                            <label>Output Event(s): </label>
+                        </div>
+                        <div class="col-md-10" style="padding-top: 7px">
+                            <span>Count = {{evt.count}}, </span>
+                            <span ng-if="evt.count == 1 && evt.sampleEvents.length > 0">
+                                <a style="margin-left: 5px"
+                                   class="link2Blank" href="javascript:void(0)"
+                                   ng-click="viewEvent(evt.sampleEvents[0])">View Event</a>
+                            </span>
+                            <span ng-if="evt.count > 1 && evt.sampleEvents.length==evt.count" ng-repeat="o in evt.sampleEvents">
+                                <a style="margin-left: 5px" class="link2Blank" href="javascript:void(0)" ng-click="viewEvent(o)">Event {{$index+1}}</a>
+                            </span>
+                            <span ng-if="evt.count > 1 && evt.sampleEvents.length<evt.count" ng-repeat="o in evt.sampleEvents">
+                                <a style="margin-left: 5px" class="link2Blank" href="javascript:void(0)" ng-click="viewEvent(o)">Sample Event {{$index+1}}</a>
+                            </span>
+                        </div>
+                    </div>
+                    <div ng-if="viewItems.length > 0" class="row">
+                        <div class="col-md-12" style="padding-top: 7px">
+                            <pre>{{getViewItemStr()}}</pre>
+                        </div>
+                    </div>
+                    <hr />
+                </div>
+                <div ng-if="displayNode.kind == 'node+edge'">
+                    <div class="row">
+                        <div class="col-md-1 control-label" style="padding-top: 7px">
+                            <label>Name</label>
+                        </div>
+                        <div class="col-md-11 form-control-static long-text" style="padding-top: 7px">
+                            <span><a class="link2Blank" href="{{displayNode._url}}" target="_blank">{{displayNode.name}}</a></span>
+                        </div>
+                    </div>
+                    <div ng-if="displayNode.outputEvent != null" class="row">
+                        <div class="col-md-1 control-label" style="padding-top: 7px">
+                            <label>Output Event(s): </label>
+                        </div>
+                        <div class="col-md-11" style="padding-top: 7px">
+                            <span>Count = {{displayNode.outputEvent.count}}, </span>
+                            <span ng-if="displayNode.outputEvent.count == 1 && displayNode.outputEvent.sampleEvents.length > 0">
+                                <a style="margin-left: 5px"
+                                   class="link2Blank" href="javascript:void(0)"
+                                   ng-click="viewEvent(displayNode.outputEvent.sampleEvents[0])">View Event</a>
+                            </span>
+                            <span ng-if="displayNode.outputEvent.count > 1 && displayNode.outputEvent.sampleEvents.length==displayNode.outputEvent.count"
+                                  ng-repeat="o in displayNode.outputEvent.sampleEvents">
+                                <a style="margin-left: 5px" class="link2Blank" href="javascript:void(0)" ng-click="viewEvent(o)">Event {{$index+1}}</a>
+                            </span>
+                            <span ng-if="displayNode.outputEvent.count > 1 && displayNode.outputEvent.sampleEvents.length<displayNode.outputEvent.count"
+                                  ng-repeat="o in displayNode.outputEvent.sampleEvents">
+                                <a style="margin-left: 5px" class="link2Blank" href="javascript:void(0)" ng-click="viewEvent(o)">Sample Event {{$index+1}}</a>
+                            </span>
+                        </div>
+                    </div>
+                    <div ng-if="displayNode.reads != null" class="row">
+                        <div class="col-md-1 control-label" style="padding-top: 7px">
+                            <label>Read Key(s): </label>
+                        </div>
+                        <div class="col-md-11" style="padding-top: 7px">
+                            <div ng-repeat="group in displayNode.reads">
+                                <div >
+                                    <span ng-repeat="s in group.items">
+                                        <a style="margin-right:5px" class="link2Blank" href="javascript:void(0)"
+                                           ng-click="viewEvent(s, 'Key', $index)">Key {{$index+1}}
+                                        </a>
+                                    </span>
+                                    <span ng-if="group.items.length>1" style="background: grey">
+                                        <a style="color: yellow"class="link2Blank" href="javascript:void(0)"
+                                           ng-click="viewEvent(group.items, 'Key')">Expand ALL
+                                        </a>
+                                    </span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div ng-if="displayNode.writes != null" class="row">
+                        <div class="col-md-1 control-label" style="padding-top: 7px">
+                            <label>Write Key(s): </label>
+                        </div>
+                        <div class="col-md-11" style="padding-top: 7px">
+                            <div>
+                                <span ng-repeat="k in displayNode.writes">
+                                    <a style="margin-right: 5px" class="link2Blank" href="javascript:void(0)"
+                                       ng-click="viewEvent(k, 'Key', $index)">
+                                        Key {{$index+1}}
+                                    </a>
+                                </span>
+                                <span ng-if="displayNode.writes.length>1" style="background: grey">
+                                    <a style="color: yellow" class="link2Blank" href="javascript:void(0)"
+                                       ng-click="viewEvent(displayNode.writes, 'Key')">
+                                        Expand ALL
+                                    </a>
+                                </span>
+                            </div>
+                            <div></div>
+                        </div>
+                    </div>
+                    <div ng-if="displayNode.removes != null" class="row">
+                        <div class="col-md-1 control-label" style="padding-top: 7px">
+                            <label>Remove Key(s): </label>
+                        </div>
+                        <div class="col-md-11" style="padding-top: 7px">
+                            <div>
+                                <span ng-repeat="k in displayNode.removes">
+                                    <a style="margin-right:5px" class="link2Blank" href="javascript:void(0)"
+                                       ng-click="">
+                                        Key {{$index+1}}
+                                    </a>
+                                </span>
+                            </div>
+                            <div></div>
+                        </div>
+                    </div>
+                    <div ng-if="viewItems.length > 0" class="row">
+                        <div class="col-md-12" style="padding-top: 7px">
+                            <button ng-if="displayNode.outputEvent==null" ng-click="viewDynamic()" class="buttom" style="float: left; margin-right: 10px;margin-top: 7px;">
+                                View Table Data For
+                            </button>
+                            <pre>{{getViewItemStr()}}</pre>
+                        </div>
+                    </div>
+                </div>
+                <div ng-if="displayNode.kind=='pub'">
+                    <div class="row">
+                        <div class="col-md-2 control-label" style="padding-top: 7px">
+                            <label>Publication</label>
+                        </div>
+                        <div class="col-md-10 form-control-static long-text">
+                            <span><a class="link2Blank" href="{{displayNode._url}}" target="_blank">{{displayNode.name}}</a></span>
+                        </div>
+                    </div>
+                    <hr/>
+                </div>
+                <div ng-if="displayNode.kind=='abb+sub'">
+                    <div class="row">
+                        <div class="col-md-2 control-label" style="padding-top: 7px">
+                            <label>Subscription</label>
+                        </div>
+                        <div class="col-md-10 form-control-static long-text">
+                            <span>{{displayNode.subName||displayNode.name}}</span>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-2 control-label" style="padding-top: 7px">
+                            <label>Duration</label>
+                        </div>
+                        <div class="col-md-10 form-control-static long-text">
+                            <span style="font-family: 'Arial Black', Gadget, sans-serif" ng-bind="displayNode._duration"></span>
+                            <span></span>
+                            <i class="glyphicon glyphicon-time" style="margin-left: 15px"></i>
+                            <span ng-bind="displayNode._startLocal" title="This is the local start time with UTC = {{displayNode.startTime}}" style="font-family: Gadget, sans-serif">
+                            </span>
+                            <i class="glyphicon glyphicon-time ng-scope" style="margin-left: 15px"></i>
+                            <span ng-bind="displayNode._endLocal" title="This is the local end time with UTC = {{displayNode.endTime}}" style="font-family: Gadget, sans-serif">
+                            </span>
+                        </div>
+                    </div>
+                    <div style="font-size: 25px">
+                        <label>Note: Double Click component to see more details</label>
+                    </div>
+                </div>
+                <div ng-if="displayNode.kind=='sub'">
+                    <div class="row">
+                        <div class="col-md-2 control-label" style="padding-top: 7px">
+                            <label>Subscription</label>
+                        </div>
+                        <div class="col-md-10 form-control-static long-text">
+                            <span style="font-family: cursive">{{displayNode.vc}}</span>
+                            <span style="margin-left: 5px"></span>
+                            <span>{{displayNode.subName||displayNode.name}}</span>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-2 control-label" style="padding-top: 7px">
+                            <label>Component</label>
+                        </div>
+                        <div class="col-md-10 form-control-static long-text">
+                            <span ng-bind="displayNode.componentName"></span>
+                            <span ng-if="displayNode.dataset!=null" style="margin-left: 5px">
+                                <a class="link2Blank" href="{{displayNode._url}}" target="_blank">{{displayNode.dataset}}</a>
+                            </span>
+                            <span ng-if="displayNode.model!=null" style="margin-left: 5px">
+                                <a class="link2Blank" href="{{displayNode._urlModel}}" target="_blank">{{displayNode.model}}</a>
+                            </span>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-2 control-label" style="padding-top: 7px">
+                            <label>Duration</label>
+                        </div>
+                        <div class="col-md-10 form-control-static long-text">
+                            <span style="font-family: 'Arial Black', Gadget, sans-serif" ng-bind="displayNode._duration"></span>
+                            <span></span>
+                            <i class="glyphicon glyphicon-time" style="margin-left: 15px"></i>
+                            <span ng-bind="displayNode._startLocal" title="This is the local start time with UTC = {{displayNode.startTime}}" style="font-family: Gadget, sans-serif">
+                            </span>
+                            <i class="glyphicon glyphicon-time ng-scope" style="margin-left: 15px"></i>
+                            <span ng-bind="displayNode._endLocal" title="This is the local end time with UTC = {{displayNode.endTime}}" style="font-family: Gadget, sans-serif">
+                            </span>
+                        </div>
+                    </div>
+                    <hr/>
+                    <div class="row" ng-if="displayNode.componentName=='WikiCard'">
+                        <div class="col-md-2 control-label" style="padding-top: 7px">
+                            <label>Crawl Time</label>
+                        </div>
+                        <div class="col-md-10 form-control-static long-text" style="padding-top: 7px">
+                            <span ng-bind="displayNode.info._crawlTimeLocal" title="This is the local end time with UTC = {{displayNode.info.crawlTime}}" style="font-family: Gadget, sans-serif"></span>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-2 control-label" style="padding-top: 7px">
+                            <label>Runtime</label>
+                        </div>
+                        <div ng-if="displayNode.componentName=='PushApi'" class="col-md-10 form-control-static long-text">
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <label>Priority:</label>
+                                    <span style="margin-left: 5px">{{displayNode.info.priority}}</span>
+                                </div>
+                            </div>
+                        </div>
+                        <div ng-if="displayNode.componentName=='Ingestion'" class="col-md-10 form-control-static long-text">
+                            <div class="row">
+                                <div class="col-md-2">
+                                    <label>Version</label>
+                                </div>
+                                <div class="col-md-4">
+                                    <span ng-bind="displayNode.info.version"></span>
+                                </div>
+                                <div class="col-md-2">
+                                    <label>Procedure</label>
+                                </div>
+                                <div class="col-md-4">
+                                    <span ng-bind="displayNode.info.procedure"></span>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-2">
+                                    <label>Process Flag</label>
+                                </div>
+                                <div class="col-md-4">
+                                    <span ng-bind="displayNode.info.flag"></span>
+                                </div>
+                            </div>
+                        </div>
+                        <div ng-if="displayNode.componentName=='GraphBuilding'" class="col-md-10 form-control-static long-text">
+                            <div class="row">
+                                <div class="col-md-2">
+                                    <label>PlatformContext</label>
+                                </div>
+                                <div class="col-md-4">
+                                    <span ng-bind="displayNode.info.platformContext"></span>
+                                </div>
+                            </div>
+                        </div>
+                        <div ng-if="displayNode.componentName=='UpdatePPG'" class="col-md-10 form-control-static long-text">
+                            <div class="row">
+                                <div class="col-md-2">
+                                    <label>UpdateType</label>
+                                </div>
+                                <div class="col-md-4">
+                                    <span>{{displayNode.info.updateType}}</span>
+                                </div>
+                            </div>
+                        </div>
+                        <div ng-if="displayNode.componentName=='Publish'" class="col-md-10 form-control-static long-text">
+                            <div class="row">
+                                <label>Strategy:</label>
+                                <span style="margin-left: 5px">{{displayNode.info.strategy}}</span>
+                            </div>
+                            <div class="row">
+                                <label>Ranker:</label>
+                                <span style="margin-left: 5px">{{displayNode.info.rankInfo.ranker}}</span>
+                            </div>
+                        </div>
+                        <div ng-if="displayNode.componentName=='Thumbnail'" class="col-md-10 form-control-static long-text">
+                            <div class="row">
+                                <label>Retry Id = </label>
+                                <span>{{displayNode.info.retryId}},</span>
+                                <label>Status = </label>
+                                <span>{{displayNode.info.status}},</span>
+                                <label>Requested Image:</label>
+                            </div>
+                            <div class="row">
+                                <div ng-repeat="m in displayNode.info.images">
+                                    <span>{{m}}</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <hr />
+                    <div class="row" ng-if="displayNode.componentName=='GraphBuilding'">
+                        <div class="col-md-2 control-label" style="padding-top: 7px">
+                            <label>Sub-Component(s)</label>
+                        </div>
+                        <div class="col-md-10 form-control-static long-text">
+                            <div class="row" ng-init="mapping=displayNode.info.mapping">
+                                <div>
+                                    <label>1. Mapping </label>
+                                </div>
+                                <div>
+                                    <div class="col-md-2">
+                                        <span>Statistics: </span>
+                                    </div>
+                                    <div class="col-md-10">
+                                        <label></label>
+                                        <span ng-bind="mapping.tripleCount"></span>
+                                        <span>(Triples),</span>
+                                        <span style="margin-left: 10px" ng-bind="mapping.subjectCount"></span>
+                                        <span>(Subjects)</span>
+                                        <span style="margin-left: 10px" ng-bind="mapping.types.length"></span>
+                                        <span> <a class="link2Blank" href="javascript:void(0)" ng-click="viewStaticData('mappingtypes', mapping.types)">(Types)</a></span>
+                                    </div>
+                                </div>
+                                <div>
+                                    <div class="col-md-2">
+                                        <span>Primary Subject:</span>
+                                    </div>
+                                    <div class="col-md-10 long-text" title="{{mapping.primarySubject}}">
+                                        <span ng-bind="mapping.primarySubject"></span>
+                                    </div>
+                                </div>
+                                <div ng-if="mapping.messages.length > 0">
+                                    <div class="col-md-2">
+                                        <span>Mapping Runtime:</span>
+                                    </div>
+                                </div>
+                                <div ng-if="mapping.messages.length > 0">
+                                    <div ng-repeat="msg in mapping.messages">
+                                        <span>[{{msg.level}}]</span>
+                                        <span style="margin-left: 5px">{{msg.message}}</span>
+                                    </div>
+                                </div>
+                            </div>
+                            <hr />
+                            <div class="row" ng-init="apsid=displayNode.info.applySid">
+                                <div>
+                                    <label>2. Apply Satori Id </label>
+                                </div>
+                                <div>
+                                    <div class="col-md-2">
+                                        <span>Statistics: </span>
+                                    </div>
+                                    <div class="col-md-10">
+                                        <label></label>
+                                        <span ng-bind="countObject(apsid.entityMap||apsid.entityMapInfo)"></span>
+                                        <span>
+                                            <a class="link2Blank" href="javascript:void(0)" ng-click="viewStaticData('entitymaps', apsid.entityMap||apsid.entityMapInfo)">(Maps)</a>
+                                        </span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row" ng-if="displayNode.messages.length > 0">
+                        <div ng-repeat="m in displayNode.messages" style="padding-left: 15px; padding-right: 15px">
+                            <label>[{{normalizeMessageLevel(m.level)}}]</label>
+                            <span ng-class="normalizeMessageColor(m.level)">{{m.message}}</span>
+                        </div>
+                    </div>
+                    <div class="row" ng-if="displayNode.info.mapping.messages.length > 0" ng-init="msgs = displayNode.info.mapping.messages">
+                        <div ng-repeat="m in msgs" style="padding-left: 15px; padding-right: 15px">
+                            <label>[Mapping {{normalizeMessageLevel(m.level)}}]</label>
+                            <span ng-class="normalizeMessageColor(m.level)">{{m.message}}</span>
+                        </div>
+                    </div>
+                    <hr />
+
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script type="text/ng-template" id="viewDynamic.html">
+    <div class="modal-header" ng-init="init()">
+        <button type="button" class="close" ng-click="ok()"><span>×</span></button>
+        <h3 class="modal-title">View Table Data [{{vm.table}}]</h3>
+    </div>
+    <div class="modal-body">
+        <div class="row" style="margin:0px; margin-right:40px">
+            <div class="col-md-8">
+                <div id="input-box" class="inner-addon right-addon">
+                    <i ng-click="getData()" class="glyphicon fa fa-search" style="cursor: pointer"></i>
+                    <input ng-click="focusInput()" sp-enter="getData()" ng-model="query" type="text" class="form-control" placeholder="Input Query Or Key"/>
+                </div>
+                <div class="dropdown" ng-class="{'open': openList}" uib-dropdown-menu role="menu" aria-labelledby="input-box">
+                    <ul class="dropdown-menu" style="width: 100%">
+                        <li role="menuitem" ng-repeat="j in vm.keys">
+                            <a class="long-text" ng-click="chooseKey($index)">{{j.tag}}</a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+            <div class="col-md-1">
+            </div>
+            <div class="col-md-1">
+            </div>
+            <div class="col-md-2">
+                <span style="margin-right: 5px;">Max Count</span>
+                <div class="btn-group" uib-dropdown>
+                    <button id="count-button" type="button"
+                            class="btn" uib-dropdown-toggle ng-disabled="disabled">
+                        {{showCount}} <span class="caret"></span>
+                    </button>
+                    <ul class="dropdown-menu" style="min-width:20px" uib-dropdown-menu role="menu" aria-labelledby="count-button">
+                        <li role="menuitem" ng-repeat="v in displayCounts" ng-click="clickCount(v)">
+                            <a href="javascript:void(0)">{{v}}</a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+        <hr />
+        <div ng-if="error!=null" class="alert alert-danger no-word-wrap long-text">
+            {{error}}
+        </div>
+        <div ng-if="isLoading" style="text-align: center; margin-top: 20%; margin-bottom: 20%">
+            <a class="fa fa-spinner fa-spin fa-3x"></a>
+        </div>
+        <div ng-if="result != null" style="min-height: 40%">
+            <div>
+                <label>Table: </label>
+                <a style="margin-left: 5px" class="link2Blank" href="{{result._url}}" target="_blank" >{{result.table}}</a>
+            </div>
+            <div class="clearfix">
+                <label>Query: </label>
+                <div style="margin-left: 5px">
+                    <pre>{{result.query}}</pre>
+                </div>
+            </div>
+            <div>
+                <label>{{result.isAll?'Total':'Sample'}} Count = {{result.count}}</label>
+            </div>
+            <pre>{{result.rowsStr}}</pre>
+        </div>
+    </div>
+    <div class="modal-footer">
+        <button class="btn btn-primary" type="button" ng-click="ok()">OK</button>
+    </div>
+</script>
+
+<script type="text/ng-template" id="view.html">
+    <div class="modal-header" ng-init="init()">
+        <button type="button" class="close" ng-click="ok()"><span>×</span></button>
+        <h3 class="modal-title">{{vm.title}}</h3>
+    </div>
+    <div class="modal-body">
+        <div ng-if="vm.format=='html'">
+            <sp-iframe content="vm.data"></sp-iframe>
+        </div>
+        <div ng-if="vm.format=='json'">
+            <pre><code lang="{{vm.lang}}">{{vm.data}}</code></pre>
+        </div>
+        <div ng-if="vm.format=='line'">
+            <div ng-repeat="r in vm.data" class="form-group">
+                <span>{{r}}</span>
+            </div>
+        </div>
+        <div ng-if="vm.format=='map'">
+            <table class="table table-bordered">
+                <thead>
+                    <tr>
+                        <th style="width: 60%">
+                            Subject
+                        </th>
+                        <th style="width: 40%">
+                            Satori Id
+                        </th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr ng-repeat="(k,v) in vm.data">
+                        <td class="long-text" title="{{k}}">{{k}}</td>
+                        <td class="long-text" title="{{v.satoriId}}">
+                            <span>{{v.satoriId}}</span>
+                            <span ng-if="v.isNew" style="color: blue">(new)</span>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+        <div ng-if="vm.format=='triple'">
+            <div ng-if="vm.tripleDataLines!=null" style="margin-top:5px;border:1px solid #CCC;height:100%;">
+                <div style="padding:10px;background-color:#F5F5F5;">
+                    <div ng-if="vm.subjectPrefix!=null">
+                        <label style="width:10%;">prefix:</label>
+                        <span>{{vm.subjectPrefix}}</span>
+                    </div>
+                    <div ng-repeat="(k, v) in vm.propertyPrefixDict">
+                        <label style="width:10%;">{{v}}:</label>
+                        <span>{{k}}</span>
+                    </div>
+                </div>
+                <table class="table table-striped">
+                    <thead>
+                        <tr><th style="width:30%;">Subject</th><th style="width:25%;">Property</th><th>Value</th></tr>
+                    </thead>
+                    <tbody>
+                        <tr ng-repeat="t in vm.tripleDataLines">
+                            <td class="long-text" title="{{t[0]}}"
+                                ng-bind-template="prefix: {{shortenSubject(vm.subjectPrefix, t[0])}}"></td>
+                            <td class="long-text" title="{{t[1]}}">{{shortenProperty(vm.propertyPrefixDict, t[1])}}</td>
+                            <td class="long-text" title="{{t[2]}}">{{t[2]}}</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+    <div class="modal-footer">
+        <button class="btn btn-primary" type="button" ng-click="ok()">OK</button>
+    </div>
+</script>
+
+@section PageScriptBundle {
+    <script src="~/Scripts/angular-1.5.8/angular.js"></script>
+    <script src="~/Scripts/angular-1.5.8/angular-cookies.min.js"></script>
+    <script src="~/Scripts/ui-bootstrap-tpls-2.0.0.min.js"></script>
+    <script src="~/Scripts/vis/vis.min.js"></script>
+    <script src="~/Scripts/Page/HeaderCtrl.js"></script>
+    <script src="~/Scripts/Page/DataTracingCtrl.js"></script>
+    <script src="~/Scripts/Page/app.js"></script>
+}
+@section PageScriptSnippet {
+    <script>
+        SP.App.getSharedApp()
+            .controller('dataTracingIndexCtrl', SP.DataTracing.IndexCtrl)
+            .controller('dataTracingViewCtrl', SP.DataTracing.ViewCtrl)
+            .controller('dataTracingViewDynamicCtrl', SP.DataTracing.ViewDynamicCtrl);
+
+    </script> 
+}

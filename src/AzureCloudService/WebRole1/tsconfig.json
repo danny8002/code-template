@@ -36,6 +36,7 @@
         "routes/main.ts",
         "routes/users.ts",
         "routes/contribute.ts",
+        "routes/tracing.ts",
         "settings/index.ts"
     ]
 }
