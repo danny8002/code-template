@@ -28,7 +28,8 @@ export interface LayoutUserDefinedData {
     title?: string,
     headerScripts?: string[],
     footerScripts?: string[],
-    otherCss?: string[]
+    otherCss?: string[],
+    onloadScript?: string;
 }
 export interface LayoutData extends LayoutUserDefinedData {
     displayName: string,
@@ -54,6 +55,12 @@ export function sendView(
     let user = <azureAd_.OIDCProfile>req.user;
 
     let layoutData = <LayoutData>(userDefinedData || {});
+    layoutData.title = layoutData.title || '';
+    layoutData.headerScripts = layoutData.headerScripts || [];
+    layoutData.footerScripts = layoutData.footerScripts || [];
+    layoutData.otherCss = layoutData.otherCss || [];
+    layoutData.onloadScript = layoutData.onloadScript || '';
+
     layoutData.displayName = user.displayName;
     layoutData.email = user.upn;
     layoutData.block_content = null;

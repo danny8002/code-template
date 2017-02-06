@@ -59,7 +59,29 @@ export function newGuid(): string {
         return out;
     }
 
-    var id= [gen(2), gen(1), gen(1), gen(1), gen(3)].join("-");
+    var id = [gen(2), gen(1), gen(1), gen(1), gen(3)].join("-");
     console.log(id);
     return id;
 }
+
+export function stringify(
+    value: any,
+    space?: string | number): string {
+
+    let cache: any[] = [];
+    let str = JSON.stringify(value, function (k, v) {
+        if (typeof v === 'object' && v !== null) {
+            if (cache.indexOf(v) !== -1) {
+                // Circular reference found, discard key
+                return "[Circular]";
+            }
+            // Store value in our collection
+            cache.push(v);
+        }
+        return v;
+    }, space);
+    cache = null; // Enable garbage collection
+
+    return str;
+}
+
