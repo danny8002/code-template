@@ -3,14 +3,14 @@
 import Express = require('express');
 import Path = require('path');
 
-import Common = require("../common/sysinfo");
-import SatoriRestClient = require("../common/backendservice");
+import sysInfo_ = require("../common/sysinfo");
 import render_ = require("../common/layoutRender");
+import util_ = require("../common/util");
 
 var router_ = Express.Router();
 
 router_.get("/sysinfo", function (req, res, next) {
-    Common.sysinfo(
+    sysInfo_.sysinfo(
         (e, d) => {
             if (e != null) {
                 res.statusMessage = "Cannot get system info: " + JSON.stringify(e);
@@ -24,29 +24,9 @@ router_.get("/sysinfo", function (req, res, next) {
     );
 });
 
-router_.get("/groups", function (req, res, next) {
-
-    var jbc = SatoriRestClient.jobServiceClient;
-    jbc.getSecurityGroups(
-        (e, d) => {
-            if (e != null) {
-                res.statusMessage = "Cannot get system info: " + JSON.stringify(e);
-                res.sendStatus(500);
-            } else {
-                render_.sendView(req, res, next,
-                    "admin/groups.ejs",
-                    null,
-                    {
-                        title: "Satori Portal Home",
-                        headerScripts: [],
-                        footerScripts: ["/javascripts/homepage/sp.js", "/javascripts/homepage/spfx.js"],
-                        otherCss: []
-                    },
-                    {
-                        groups: d || []
-                    });
-            }
-        }
-    );
+router_.get("/request", function (req, res, next) {
+    var json = util_.stringify(req, 4);
+    res.setHeader("Content-Type", "application/json");
+    res.send(json);
 });
 module.exports = router_;
